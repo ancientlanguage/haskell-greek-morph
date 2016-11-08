@@ -16,6 +16,7 @@ library
   hs-source-dirs: src
   exposed-modules:
     Grammar.Greek.Morph.Serialize
+    Grammar.Greek.Morph.Stage
   ghc-options: -Wall -fwarn-tabs -O2
   default-extensions:
     OverloadedStrings,
