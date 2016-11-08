@@ -43,3 +43,27 @@ library
     grammar,
     greek-script
   default-language: Haskell2010
+
+executable query
+  hs-source-dirs: app
+  main-is: Main.hs
+  ghc-options: -Wall -fwarn-tabs -O2 -threaded -rtsopts -with-rtsopts=-N
+  default-extensions:
+    OverloadedStrings
+    ScopedTypeVariables,
+    TypeOperators
+  build-depends:
+    base,
+    containers,
+    bytestring,
+    text,
+    either,
+    lens,
+    cereal,
+    optparse-applicative,
+    text-format,
+    primary-type,
+    grammar,
+    greek-script,
+    greek-morph
+  default-language: Haskell2010
