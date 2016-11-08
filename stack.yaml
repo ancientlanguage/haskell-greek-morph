@@ -1,0 +1,18 @@
+resolver: lts-7.7
+packages:
+- '.'
+- location:
+    git: https://github.com/ancientlanguage/haskell-primary-type.git
+    commit: f4a775b9986385e5cd768c680098495445301b1b
+  extra-dep: true
+- location:
+    git: https://github.com/ancientlanguage/haskell-grammar.git
+    commit: 32b0eb50d51671e500f18cd426591f4b0afd6afc
+  extra-dep: true
+- location:
+    git: https://github.com/ancientlanguage/haskell-greek-script.git
+    commit: 0aa6788ca98ebea41ed35185e1ab764c097baa27
+  extra-dep: true
+extra-deps: []
+flags: {}
+extra-package-dbs: []
