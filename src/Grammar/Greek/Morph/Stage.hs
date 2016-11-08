@@ -2,8 +2,7 @@ module Grammar.Greek.Morph.Stage where
 
 import Prelude hiding (Word)
 import Control.Lens (over, _Just, _2)
-import Grammar.CommonTypes
-import Grammar.Prepare
+import Grammar.Common.Types
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
 

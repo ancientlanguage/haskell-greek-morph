@@ -9,8 +9,8 @@ import qualified Data.Text.Lazy.IO as Lazy
 import Options.Applicative hiding (Failure, Success)
 
 import Grammar.IO.QueryStage
-import Grammar.CommonTypes
-import Grammar.Numeric
+import Grammar.Common.Types
+import Grammar.Common.Numeric
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 
 queryOptionsParser :: Parser QueryOptions

@@ -1,10 +1,9 @@
 module Grammar.Greek.Morph.Serialize where
 
 import Prelude hiding (Word)
-import Grammar.CommonTypes
+import Grammar.Common.Types
+import Grammar.IO.Serialize
 import Grammar.Greek.Script.Word
-import Grammar.Prepare
-import Grammar.Serialize
 
 scriptPath :: FilePath
 scriptPath = "./modules/binary-greek-script/data"
