@@ -14,6 +14,7 @@ import Grammar.Common.Types
 import Grammar.IO.Serialize
 import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types
+import Grammar.Greek.Script.Word
 import qualified Grammar.Greek.Morph.Rounds as Rounds
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 import qualified Grammar.Greek.Morph.Stage as Stage
@@ -22,14 +23,14 @@ import Grammar.Test.Stage
 
 shouldElideGroup = testGroup "shouldElide" $
   [ testDest "δ’"
-    (NoInitialAspiration :^ [] :^ [CR_δ] :^ IsElided :^ NoInitialAspiration)
-    (NoInitialAspiration :^ [[CR_δ] :^ VS_Vowel V_ε] :^ [] :^ ShouldElide :^ NoInitialAspiration)
+    (CoreWord NoInitialAspiration [] [CR_δ] :^ IsElided :^ NoInitialAspiration)
+    (CoreWord NoInitialAspiration [Syllable [CR_δ] (VS_Vowel V_ε)] [] :^ ShouldElide :^ NoInitialAspiration)
   , testDest "ὑπ’"
-    (HasInitialAspiration :^ [[] :^ VS_Vowel V_υ] :^ [CR_π] :^ IsElided :^ NoInitialAspiration)
-    (HasInitialAspiration :^ [[] :^ VS_Vowel V_υ, [CR_π] :^ VS_Vowel V_ο] :^ [] :^ ShouldElide :^ NoInitialAspiration)
+    (CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ)] [CR_π] :^ IsElided :^ NoInitialAspiration)
+    (CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ), Syllable [CR_π] (VS_Vowel V_ο)] [] :^ ShouldElide :^ NoInitialAspiration)
   , testDest "ὑφ’"
-    (HasInitialAspiration :^ [[] :^ VS_Vowel V_υ] :^ [CR_φ] :^ IsElided :^ HasInitialAspiration)
-    (HasInitialAspiration :^ [[] :^ VS_Vowel V_υ, [CR_π] :^ VS_Vowel V_ο] :^ [] :^ ShouldElide :^ HasInitialAspiration)
+    (CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ)] [CR_φ] :^ IsElided :^ HasInitialAspiration)
+    (CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ), Syllable [CR_π] (VS_Vowel V_ο)] [] :^ ShouldElide :^ HasInitialAspiration)
   ]
   where
   testDest n vs ds = testRoundDest n Rounds.shouldElide vs ds
