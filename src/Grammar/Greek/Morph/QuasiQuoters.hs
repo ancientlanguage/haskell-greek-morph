@@ -23,19 +23,32 @@ handleText x = Just $ appE (varE 'Text.pack) $ litE $ StringL $ Text.unpack x
 trim :: String -> String
 trim = Text.unpack . Text.strip . Text.pack
 
-parseWord :: String -> Validation String Word
-parseWord x = case (roundTo Stage.script) [x :^ (trim . decompose) x :^ NoWordPunctuation] of
+parseWordMap :: (String -> String) -> String -> Validation String Word
+parseWordMap f x = case (roundTo Stage.script) [x :^ (trim . f . decompose) x :^ NoWordPunctuation] of
   Failure es -> Failure $ concatMap (\(c, e) -> c ++ " -- " ++ show e ++ "\n") es
   Success [(_, w)] -> Success w
   Success w -> Failure $ "Unexpected word: " ++ show w
 
+parseWordsMap :: (String -> String) -> String -> Validation String [Word]
+parseWordsMap f = traverse (parseWordMap f) . words
+
 parseWords :: String -> Validation String [Word]
-parseWords = traverse parseWord . words
+parseWords = parseWordsMap id
 
 wordsExp :: Data a => (Word -> a) -> String -> Q Exp
 wordsExp f x = case parseWords x of
   Failure e -> fail e
   Success ws -> dataToExpQ (const Nothing `extQ` handleText) $ fmap f ws
+
+ignoreMacron :: String -> String
+ignoreMacron = filter ('\772' /=)
+
+wordsExpLen :: Data a => Int -> (Word -> a) -> String -> Q Exp
+wordsExpLen len f x = case parseWordsMap ignoreMacron x of
+  Failure e -> fail e
+  Success ws -> case length ws == len of
+    True -> dataToExpQ (const Nothing `extQ` handleText) $ fmap f ws
+    False -> fail $ "expected " ++ show len ++ " words but found " ++ show (length ws)
 
 coreWords :: QuasiQuoter
 coreWords = QuasiQuoter
@@ -48,6 +61,14 @@ coreWords = QuasiQuoter
 accentedWords :: QuasiQuoter
 accentedWords = QuasiQuoter
   { quoteExp = wordsExp wordToAccentedWord
+  , quotePat = undefined
+  , quoteType = undefined
+  , quoteDec = undefined
+  }
+
+nounParadigm :: QuasiQuoter
+nounParadigm = QuasiQuoter
+  { quoteExp = wordsExpLen 11 wordToAccentedWord
   , quotePat = undefined
   , quoteType = undefined
   , quoteDec = undefined
