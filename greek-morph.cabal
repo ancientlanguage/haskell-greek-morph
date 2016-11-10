@@ -18,6 +18,7 @@ library
     Grammar.Greek.Morph.Aspirate
     Grammar.Greek.Morph.ElidingForms
     Grammar.Greek.Morph.EncliticForms
+    Grammar.Greek.Morph.ProcliticForms
     Grammar.Greek.Morph.QuasiQuoters
     Grammar.Greek.Morph.Rounds
     Grammar.Greek.Morph.Rounds.ShouldElide
