@@ -52,3 +52,19 @@ wordShouldElideCoreWord :: WordShouldElide -> CoreWord
 wordShouldElideCoreWord (WordShouldElide x _ _ _ _ _ _) = x
 wordShouldElideShouldElide :: WordShouldElide -> ShouldElide
 wordShouldElideShouldElide (WordShouldElide _ _ _ x _ _ _) = x
+
+data AccentHandling = NormalAccentHandling | Enclitic | Proclitic
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize AccentHandling
+
+data WordAccentHandling = WordAccentHandling
+  CoreWord
+  (Maybe WordAccent)
+  AccentHandling
+  Crasis
+  ShouldElide
+  MarkPreservation
+  Capitalization
+  HasWordPunctuation
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize WordAccentHandling
