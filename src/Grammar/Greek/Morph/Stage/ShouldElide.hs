@@ -20,9 +20,6 @@ addAspirationContext f = fmap go . contextualize 1
     -> ctx :* w :* InitialAspiration
   go ((sid, w), (_, ns)) = sid :^ w :^ goNext ns
 
-getCore :: Word -> CoreWord
-getCore (Word asp ss fc _ _ _ _ _ _) = CoreWord asp ss fc
-
 shouldElide :: forall ctx . RoundContext ctx Rounds.InvalidElisionForm Rounds.InvalidElisionCandidate
   Word
   WordShouldElide
@@ -31,7 +28,7 @@ shouldElide = Round to from
   to = to4 . to3 . to2 . to1
 
   to1 :: [ctx :* Word] -> [ctx :* Word :* CoreWord :* Elision :* InitialAspiration]
-  to1 = over (traverse . _2) (\(w, ia) -> w :^ getCore w :^ wordElision w :^ ia) . addAspirationContext wordInitialAspiration
+  to1 = over (traverse . _2) (\(w, ia) -> w :^ wordCore w :^ wordElision w :^ ia) . addAspirationContext wordInitialAspiration
 
   to2 :: [ctx :* Word :* CoreWord :* Elision :* InitialAspiration]
     -> Validation

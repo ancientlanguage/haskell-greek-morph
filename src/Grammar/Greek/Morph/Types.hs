@@ -1,14 +1,17 @@
+{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 
 module Grammar.Greek.Morph.Types where
 
+import Prelude hiding (Word)
 import GHC.Generics (Generic)
+import Data.Data
 import Data.Serialize (Serialize)
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
 
 data ShouldElide = ShouldElide | ShouldNotElide
-  deriving (Eq, Ord, Show, Generic)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize ShouldElide
 
 data CoreWord = CoreWord
@@ -16,8 +19,11 @@ data CoreWord = CoreWord
   , coreWordSyllables :: [Syllable]
   , coreWordFinalConsonants :: [ConsonantRho]
   }
-  deriving (Eq, Ord, Show, Generic)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize CoreWord
+
+wordCore :: Word -> CoreWord
+wordCore (Word asp ss fc _ _ _ _ _ _) = CoreWord asp ss fc
 
 data WordShouldElide = WordShouldElide
   CoreWord
@@ -27,7 +33,7 @@ data WordShouldElide = WordShouldElide
   MarkPreservation
   Capitalization
   HasWordPunctuation
-  deriving (Eq, Ord, Show, Generic)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize WordShouldElide
 
 wordShouldElideCoreWord :: WordShouldElide -> CoreWord

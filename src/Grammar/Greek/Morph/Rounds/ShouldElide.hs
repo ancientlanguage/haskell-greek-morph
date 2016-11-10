@@ -6,6 +6,7 @@ import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import Grammar.Common
 import Grammar.Greek.Morph.Aspirate
+import Grammar.Greek.Morph.ElidingForms
 import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
@@ -26,23 +27,6 @@ elide (CoreWord asp ss [] :^ nasp) | ((Syllable fc _) : rss) <- reverse ss = Cor
     HasInitialAspiration -> aspirateList
     NoInitialAspiration -> id
 elide x = x
-
-elidingForms :: [ CoreWord ]
-elidingForms =
-  [ CoreWord NoInitialAspiration [Syllable [CR_δ] (VS_Vowel V_ε)] []
-  , CoreWord NoInitialAspiration [Syllable [] (VS_Vowel V_α), Syllable [CR_λ, CR_λ] (VS_Vowel V_α)] []
-  , CoreWord NoInitialAspiration [Syllable [] (VS_Vowel V_α), Syllable [CR_ν, CR_τ] (VS_Vowel V_ι)] []
-  , CoreWord NoInitialAspiration [Syllable [] (VS_Vowel V_α), Syllable [CR_π] (VS_Vowel V_ο)] []
-  , CoreWord NoInitialAspiration [Syllable [] (VS_Vowel V_ε), Syllable [CR_π] (VS_Vowel V_ι)] []
-  , CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ), Syllable [CR_π] (VS_Vowel V_ο)] []
-  , CoreWord NoInitialAspiration [Syllable [] (VS_Diphthong D_ου), Syllable [CR_δ] (VS_Vowel V_ε)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_δ] (VS_Vowel V_ι), Syllable [] (VS_Vowel V_α)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_κ] (VS_Vowel V_α), Syllable [CR_τ] (VS_Vowel V_α)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_μ] (VS_Vowel V_ε), Syllable [CR_τ] (VS_Vowel V_α)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_μ] (VS_Vowel V_η), Syllable [CR_δ] (VS_Vowel V_ε)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_π] (VS_Vowel V_α), Syllable [CR_ρ B_Smooth] (VS_Vowel V_α)] []
-  , CoreWord NoInitialAspiration [Syllable [CR_τ] (VS_Diphthong D_ου), Syllable [CR_τ] (VS_Vowel V_ο)] []
-  ]
 
 reverseElisionForms :: Map
   (CoreWord :* InitialAspiration)

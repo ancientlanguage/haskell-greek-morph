@@ -16,6 +16,8 @@ library
   hs-source-dirs: src
   exposed-modules:
     Grammar.Greek.Morph.Aspirate
+    Grammar.Greek.Morph.ElidingForms
+    Grammar.Greek.Morph.QuasiQuoters
     Grammar.Greek.Morph.Rounds
     Grammar.Greek.Morph.Rounds.ShouldElide
     Grammar.Greek.Morph.Rounds.WordProperties
@@ -43,6 +45,8 @@ library
     directory,
     filepath,
     extra,
+    template-haskell,
+    syb,
     test-framework,
     test-framework-hunit,
     HUnit,
