@@ -8,19 +8,19 @@ import Grammar.Greek.Morph.Types
 -- Smyth 179
 
 procliticForms :: [ CoreWord ]
-procliticForms =
-  [ [coreWord| ὁ |]
-  , [coreWord| ἡ |]
-  , [coreWord| οἱ |]
-  , [coreWord| αἱ |]
-  , [coreWord| ἐν |]
-  , [coreWord| εἰς |]
-  , [coreWord| ἐς |]
-  , [coreWord| ἐξ |]
-  , [coreWord| ἐκ |]
-  , [coreWord| εἰ |]
-  , [coreWord| ὡς |]
-  , [coreWord| οὐ |]
-  , [coreWord| οὐκ |]
-  , [coreWord| οὐχ |]
-  ]
+procliticForms = [coreWords|
+  ὁ
+  ἡ
+  οἱ
+  αἱ
+  ἐν
+  εἰς
+  ἐς
+  ἐξ
+  ἐκ
+  εἰ
+  ὡς
+  οὐ
+  οὐκ
+  οὐχ
+  |]

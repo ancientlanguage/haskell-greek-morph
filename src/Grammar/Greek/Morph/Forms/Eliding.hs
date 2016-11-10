@@ -6,20 +6,21 @@ import Grammar.Greek.Morph.QuasiQuoters
 import Grammar.Greek.Morph.Types
 
 elidingForms :: [ CoreWord ]
-elidingForms =
-  [ [coreWord| ἀντί |]
-  , [coreWord| ἀπό |]
-  , [coreWord| διά |]
-  , [coreWord| ἐπί |]
-  , [coreWord| κατά |]
-  , [coreWord| μετά |]
-  , [coreWord| παρά |]
-  , [coreWord| ὑπό |]
+elidingForms = [coreWords|
+  ἀντί
+  ἀπό
+  διά
+  ἐπί
+  κατά
+  μετά
+  παρά
+  ὑπό
 
-  , [coreWord| ἀλλά |]
-  , [coreWord| δέ |]
-  , [coreWord| μηδέ |]
-  , [coreWord| οὐδέ |]
+  ἀλλά
 
-  , [coreWord| τοῦτο |]
-  ]
+  δέ
+  μηδέ
+  οὐδέ
+
+  τοῦτο
+  |]

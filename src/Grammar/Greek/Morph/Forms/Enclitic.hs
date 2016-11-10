@@ -7,53 +7,54 @@ import Grammar.Greek.Morph.Types
 
 -- Smyth 181
 
+-- εἰμί pres indic except εἶ
+-- φημί pres indic except φῄς
+-- the inseparable -δε in ὅδε, τοσόσδε
+
 encliticForms :: [ AccentedWord ]
-encliticForms =
-  [ [accentedWord| μοῦ |]
-  , [accentedWord| μοί |]
-  , [accentedWord| μέ |]
-  , [accentedWord| σοῦ |]
-  , [accentedWord| σοί |]
-  , [accentedWord| σέ |]
-  , [accentedWord| οὗ |]
-  , [accentedWord| οἷ |]
-  , [accentedWord| ἕ |]
+encliticForms = [accentedWords|
+  μοῦ
+  μοί
+  μέ
+  σοῦ
+  σοί
+  σέ
+  οὗ
+  οἷ
+  ἕ
 
-  , [accentedWord| τίς |]
-  , [accentedWord| τί |]
-  , [accentedWord| τοῦ |]
-  , [accentedWord| τῷ |]
-  , [accentedWord| τινός |]
-  , [accentedWord| τινί |]
+  τίς
+  τί
+  τοῦ
+  τῷ
+  τινός
+  τινί
 
-  , [accentedWord| πού |]
-  , [accentedWord| ποθί |]
-  , [accentedWord| πῄ |]
-  , [accentedWord| ποί |]
-  , [accentedWord| ποθέν |]
-  , [accentedWord| ποτέ |]
-  , [accentedWord| πώ |]
-  , [accentedWord| πώς |]
+  πού
+  ποθί
+  πῄ
+  ποί
+  ποθέν
+  ποτέ
+  πώ
+  πώς
 
-  -- εἰμί pres indic except εἶ
-  , [accentedWord| ἐστί |]
-  , [accentedWord| ἐστίν |]
-  , [accentedWord| ἐσμέν |]
-  , [accentedWord| ἐστέ |]
-  , [accentedWord| εἰσί |]
-  , [accentedWord| εἰσίν |]
+  ἐστί
+  ἐστίν
+  ἐσμέν
+  ἐστέ
+  εἰσί
+  εἰσίν
 
-  -- φημί pres indic except φῄς
-  , [accentedWord| φημί |]
-  , [accentedWord| φησί |]
-  , [accentedWord| φαμέν |]
-  , [accentedWord| φατέ |]
-  , [accentedWord| φασί |]
-  , [accentedWord| φασίν |]
+  φημί
+  φησί
+  φαμέν
+  φατέ
+  φασί
+  φασίν
 
-  , [accentedWord| γέ |]
-  , [accentedWord| τέ |]
-  , [accentedWord| τοί |]
-  , [accentedWord| πέρ |]
-  -- the inseparable -δε in ὅδε, τοσόσδε
-  ]
+  γέ
+  τέ
+  τοί
+  πέρ
+  |]

@@ -6,7 +6,8 @@ import Prelude hiding (Word)
 import Data.Data
 import Data.Either.Validation
 import Data.Generics (extQ)
-import qualified Data.Text as T
+import Data.Text (Text)
+import qualified Data.Text as Text
 import Language.Haskell.TH
 import Language.Haskell.TH.Quote
 import Grammar.Common
@@ -16,34 +17,37 @@ import Grammar.Greek.Script.Word
 import Grammar.Greek.Morph.Types
 import qualified Grammar.Greek.Script.Stage as Stage
 
-handleText :: T.Text -> Maybe ExpQ
-handleText x = Just $ appE (varE 'T.pack) $ litE $ StringL $ T.unpack x
+handleText :: Text -> Maybe ExpQ
+handleText x = Just $ appE (varE 'Text.pack) $ litE $ StringL $ Text.unpack x
 
 trim :: String -> String
-trim = T.unpack . T.strip . T.pack
+trim = Text.unpack . Text.strip . Text.pack
 
 parseWord :: String -> Validation String Word
-parseWord x = case (roundTo Stage.script) [() :^ (trim . decompose) x :^ NoWordPunctuation] of
-  Failure e -> Failure (show e)
+parseWord x = case (roundTo Stage.script) [x :^ (trim . decompose) x :^ NoWordPunctuation] of
+  Failure es -> Failure $ concatMap (\(c, e) -> c ++ " -- " ++ show e ++ "\n") es
   Success [(_, w)] -> Success w
   Success w -> Failure $ "Unexpected word: " ++ show w
 
-wordExp :: Data a => (Word -> a) -> String -> Q Exp
-wordExp f x = case parseWord x of
-  Failure e -> fail e
-  Success w -> dataToExpQ (const Nothing `extQ` handleText) $ f w
+parseWords :: String -> Validation String [Word]
+parseWords = traverse parseWord . words
 
-coreWord :: QuasiQuoter
-coreWord = QuasiQuoter
-  { quoteExp = wordExp wordToCoreWord
+wordsExp :: Data a => (Word -> a) -> String -> Q Exp
+wordsExp f x = case parseWords x of
+  Failure e -> fail e
+  Success ws -> dataToExpQ (const Nothing `extQ` handleText) $ fmap f ws
+
+coreWords :: QuasiQuoter
+coreWords = QuasiQuoter
+  { quoteExp = wordsExp wordToCoreWord
   , quotePat = undefined
   , quoteType = undefined
   , quoteDec = undefined
   }
 
-accentedWord :: QuasiQuoter
-accentedWord = QuasiQuoter
-  { quoteExp = wordExp wordToAccentedWord
+accentedWords :: QuasiQuoter
+accentedWords = QuasiQuoter
+  { quoteExp = wordsExp wordToAccentedWord
   , quotePat = undefined
   , quoteType = undefined
   , quoteDec = undefined
