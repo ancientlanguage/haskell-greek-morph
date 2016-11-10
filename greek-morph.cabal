@@ -21,6 +21,7 @@ library
     Grammar.Greek.Morph.Rounds.WordProperties
     Grammar.Greek.Morph.Serialize
     Grammar.Greek.Morph.Stage
+    Grammar.Greek.Morph.Stage.ShouldElide
     Grammar.Greek.Morph.Types
   ghc-options: -Wall -fwarn-tabs -O2
   default-extensions:
