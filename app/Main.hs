@@ -13,8 +13,10 @@ import Grammar.Common.Types
 import Grammar.Common.Numeric
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 
+import Queries
+
 queryOptionsParser :: Parser QueryOptions
-queryOptionsParser = QueryOptions <$> resultOptionParser <*> matchParser <*> omitParser
+queryOptionsParser = QueryOptions <$> resultOptionParser <*> matchParser <*> omitParser <*> contextParser
   where
   resultOptionParser :: Parser ResultOption
   resultOptionParser = option auto
@@ -36,6 +38,13 @@ queryOptionsParser = QueryOptions <$> resultOptionParser <*> matchParser <*> omi
     <> short 'o'
     <> value ""
     <> metavar "HEADING"
+    )
+
+  contextParser = option auto
+    ( long "context"
+    <> short 'c'
+    <> value 5
+    <> metavar "{number of words of context in results}"
     )
 
 data Query = Query

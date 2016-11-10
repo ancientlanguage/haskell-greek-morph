@@ -59,9 +59,11 @@ library
     greek-script
   default-language: Haskell2010
 
-executable query
+executable greek-morph-query
   hs-source-dirs: app
   main-is: Main.hs
+  other-modules:
+    Queries
   ghc-options: -Wall -fwarn-tabs -O2 -threaded -rtsopts -with-rtsopts=-N
   default-extensions:
     OverloadedStrings
