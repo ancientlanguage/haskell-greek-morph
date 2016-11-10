@@ -73,3 +73,11 @@ nounParadigm = QuasiQuoter
   , quoteType = undefined
   , quoteDec = undefined
   }
+
+verbParadigm :: QuasiQuoter
+verbParadigm = QuasiQuoter
+  { quoteExp = wordsExpLen 8 wordToAccentedWord
+  , quotePat = undefined
+  , quoteType = undefined
+  , quoteDec = undefined
+  }
