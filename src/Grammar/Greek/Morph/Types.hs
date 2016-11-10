@@ -22,8 +22,20 @@ data CoreWord = CoreWord
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize CoreWord
 
-wordCore :: Word -> CoreWord
-wordCore (Word asp ss fc _ _ _ _ _ _) = CoreWord asp ss fc
+wordToCoreWord :: Word -> CoreWord
+wordToCoreWord (Word asp ss fc _ _ _ _ _ _) = CoreWord asp ss fc
+
+data AccentedWord = AccentedWord
+  { accentedWordAspiration :: InitialAspiration
+  , accentedWordSyllables :: [Syllable]
+  , accentedWordFinalConsonants :: [ConsonantRho]
+  , accentedWordAccent :: Maybe WordAccent
+  }
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize AccentedWord
+
+wordToAccentedWord :: Word -> AccentedWord
+wordToAccentedWord (Word asp ss fc a _ _ _ _ _) = AccentedWord asp ss fc a
 
 data WordShouldElide = WordShouldElide
   CoreWord

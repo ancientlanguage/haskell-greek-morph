@@ -28,7 +28,7 @@ shouldElide = Round to from
   to = to4 . to3 . to2 . to1
 
   to1 :: [ctx :* Word] -> [ctx :* Word :* CoreWord :* Elision :* InitialAspiration]
-  to1 = over (traverse . _2) (\(w, ia) -> w :^ wordCore w :^ wordElision w :^ ia) . addAspirationContext wordInitialAspiration
+  to1 = over (traverse . _2) (\(w, ia) -> w :^ wordToCoreWord w :^ wordElision w :^ ia) . addAspirationContext wordInitialAspiration
 
   to2 :: [ctx :* Word :* CoreWord :* Elision :* InitialAspiration]
     -> Validation
