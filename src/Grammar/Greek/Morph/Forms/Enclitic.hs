@@ -1,6 +1,6 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.EncliticForms where
+module Grammar.Greek.Morph.Forms.Enclitic where
 
 import Grammar.Greek.Morph.QuasiQuoters
 import Grammar.Greek.Morph.Types

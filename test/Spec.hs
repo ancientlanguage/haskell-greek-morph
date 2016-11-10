@@ -20,9 +20,9 @@ import Grammar.Greek.Script.Word
 import qualified Grammar.Greek.Morph.ShouldElide.Round as Round
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 import qualified Grammar.Greek.Morph.Stage as Stage
-import Grammar.Greek.Morph.ElidingForms (elidingForms)
-import Grammar.Greek.Morph.EncliticForms (encliticForms)
-import Grammar.Greek.Morph.ProcliticForms (procliticForms)
+import Grammar.Greek.Morph.Forms.Eliding (elidingForms)
+import Grammar.Greek.Morph.Forms.Enclitic (encliticForms)
+import Grammar.Greek.Morph.Forms.Proclitic (procliticForms)
 import Grammar.Test.Round
 import Grammar.Test.Stage
 

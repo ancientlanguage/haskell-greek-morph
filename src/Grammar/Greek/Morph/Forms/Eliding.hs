@@ -1,6 +1,6 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.ElidingForms where
+module Grammar.Greek.Morph.Forms.Eliding where
 
 import Grammar.Greek.Morph.QuasiQuoters
 import Grammar.Greek.Morph.Types

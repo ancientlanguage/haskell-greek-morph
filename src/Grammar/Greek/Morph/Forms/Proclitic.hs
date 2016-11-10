@@ -1,6 +1,6 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.ProcliticForms where
+module Grammar.Greek.Morph.Forms.Proclitic where
 
 import Grammar.Greek.Morph.QuasiQuoters
 import Grammar.Greek.Morph.Types

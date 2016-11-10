@@ -16,9 +16,9 @@ library
   hs-source-dirs: src
   exposed-modules:
     Grammar.Greek.Morph.Aspirate
-    Grammar.Greek.Morph.ElidingForms
-    Grammar.Greek.Morph.EncliticForms
-    Grammar.Greek.Morph.ProcliticForms
+    Grammar.Greek.Morph.Forms.Eliding
+    Grammar.Greek.Morph.Forms.Enclitic
+    Grammar.Greek.Morph.Forms.Proclitic
     Grammar.Greek.Morph.QuasiQuoters
     Grammar.Greek.Morph.ShouldElide.Round
     Grammar.Greek.Morph.ShouldElide.Stage
