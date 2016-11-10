@@ -91,6 +91,7 @@ test-suite greek-morph-test
     TypeOperators
   build-depends:
     base,
+    containers,
     either,
     lens,
     test-framework,

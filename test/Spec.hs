@@ -1,9 +1,11 @@
 import Test.Framework
 import Test.Framework.Providers.HUnit
-import Test.HUnit (assertFailure, assertEqual)
+import Test.HUnit (assertFailure, assertEqual, Assertion)
 import Control.Lens (over, _2, (^?), _Right)
 import Data.Either.Validation (Validation(..), _Failure)
 import Data.Maybe (isJust)
+import qualified Data.List as List
+import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
@@ -18,8 +20,20 @@ import Grammar.Greek.Script.Word
 import qualified Grammar.Greek.Morph.Rounds as Rounds
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 import qualified Grammar.Greek.Morph.Stage as Stage
+import Grammar.Greek.Morph.ElidingForms (elidingForms)
+import Grammar.Greek.Morph.EncliticForms (encliticForms)
+import Grammar.Greek.Morph.ProcliticForms (procliticForms)
 import Grammar.Test.Round
 import Grammar.Test.Stage
+
+isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
+isUnique xs = assertEqual "expect equal" (List.sort xs) (Set.toList . Set.fromList $ xs)
+
+uniqueFormsGroup = testGroup "unique forms" $
+  [ testCase "unique enclitic" (isUnique encliticForms)
+  , testCase "unique proclitic" (isUnique procliticForms)
+  , testCase "unique eliding" (isUnique elidingForms)
+  ]
 
 shouldElideGroup = testGroup "shouldElide" $
   [ testDest "δ’"
@@ -38,5 +52,6 @@ shouldElideGroup = testGroup "shouldElide" $
 main :: IO ()
 main = defaultMain
   [ shouldElideGroup
+  , uniqueFormsGroup
   , testGroupStages "morph stage" Stage.morph id (pure <$> Serialize.readScript)
   ]
