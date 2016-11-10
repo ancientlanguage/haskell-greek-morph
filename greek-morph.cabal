@@ -15,6 +15,9 @@ source-repository head
 library
   hs-source-dirs: src
   exposed-modules:
+    Grammar.Greek.Morph.AccentHandling.Round
+    Grammar.Greek.Morph.AccentHandling.Stage
+    Grammar.Greek.Morph.AccentHandling.Types
     Grammar.Greek.Morph.Aspirate
     Grammar.Greek.Morph.Forms.Eliding
     Grammar.Greek.Morph.Forms.Enclitic
