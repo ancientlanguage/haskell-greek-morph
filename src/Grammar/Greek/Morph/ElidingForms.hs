@@ -7,17 +7,19 @@ import Grammar.Greek.Morph.Types
 
 elidingForms :: [ CoreWord ]
 elidingForms =
-  [ [coreWord| ἀλλά |]
-  , [coreWord| ἀντί |]
+  [ [coreWord| ἀντί |]
   , [coreWord| ἀπό |]
-  , [coreWord| δέ |]
   , [coreWord| διά |]
   , [coreWord| ἐπί |]
   , [coreWord| κατά |]
   , [coreWord| μετά |]
+  , [coreWord| παρά |]
+  , [coreWord| ὑπό |]
+
+  , [coreWord| ἀλλά |]
+  , [coreWord| δέ |]
   , [coreWord| μηδέ |]
   , [coreWord| οὐδέ |]
-  , [coreWord| παρά |]
+
   , [coreWord| τοῦτο |]
-  , [coreWord| ὑπό |]
   ]
