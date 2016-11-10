@@ -1,4 +1,4 @@
-module Grammar.Greek.Morph.Rounds.ShouldElide where
+module Grammar.Greek.Morph.ShouldElide.Round where
 
 import Control.Lens (over)
 import Data.Either.Validation

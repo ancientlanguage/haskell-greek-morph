@@ -37,22 +37,6 @@ instance Serialize AccentedWord
 wordToAccentedWord :: Word -> AccentedWord
 wordToAccentedWord (Word asp ss fc a _ _ _ _ _) = AccentedWord asp ss fc a
 
-data WordShouldElide = WordShouldElide
-  CoreWord
-  (Maybe WordAccent)
-  Crasis
-  ShouldElide
-  MarkPreservation
-  Capitalization
-  HasWordPunctuation
-  deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize WordShouldElide
-
-wordShouldElideCoreWord :: WordShouldElide -> CoreWord
-wordShouldElideCoreWord (WordShouldElide x _ _ _ _ _ _) = x
-wordShouldElideShouldElide :: WordShouldElide -> ShouldElide
-wordShouldElideShouldElide (WordShouldElide _ _ _ x _ _ _) = x
-
 data AccentHandling = NormalAccentHandling | Enclitic | Proclitic
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize AccentHandling

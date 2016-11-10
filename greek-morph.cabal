@@ -1,5 +1,5 @@
 name: greek-morph
-version: 0.2.0
+version: 0.3.0
 synopsis: Ancient Greek morphophonology modeled in Haskell verified against primary sources
 description: Please see README.md
 homepage: https://github.com/ancientlanguage/haskell-greek-morph#readme
@@ -20,12 +20,11 @@ library
     Grammar.Greek.Morph.EncliticForms
     Grammar.Greek.Morph.ProcliticForms
     Grammar.Greek.Morph.QuasiQuoters
-    Grammar.Greek.Morph.Rounds
-    Grammar.Greek.Morph.Rounds.ShouldElide
-    Grammar.Greek.Morph.Rounds.WordProperties
+    Grammar.Greek.Morph.ShouldElide.Round
+    Grammar.Greek.Morph.ShouldElide.Stage
+    Grammar.Greek.Morph.ShouldElide.Types
     Grammar.Greek.Morph.Serialize
     Grammar.Greek.Morph.Stage
-    Grammar.Greek.Morph.Stage.ShouldElide
     Grammar.Greek.Morph.Types
   ghc-options: -Wall -fwarn-tabs -O2
   default-extensions:

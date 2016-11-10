@@ -2,6 +2,6 @@
 
 module Grammar.Greek.Morph.Stage where
 
-import Grammar.Greek.Morph.Stage.ShouldElide (shouldElide)
+import Grammar.Greek.Morph.ShouldElide.Stage (shouldElide)
 
 morph = shouldElide

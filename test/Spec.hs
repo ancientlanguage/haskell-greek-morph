@@ -17,7 +17,7 @@ import Grammar.IO.Serialize
 import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
-import qualified Grammar.Greek.Morph.Rounds as Rounds
+import qualified Grammar.Greek.Morph.ShouldElide.Round as Round
 import qualified Grammar.Greek.Morph.Serialize as Serialize
 import qualified Grammar.Greek.Morph.Stage as Stage
 import Grammar.Greek.Morph.ElidingForms (elidingForms)
@@ -47,7 +47,7 @@ shouldElideGroup = testGroup "shouldElide" $
     (CoreWord HasInitialAspiration [Syllable [] (VS_Vowel V_υ), Syllable [CR_π] (VS_Vowel V_ο)] [] :^ ShouldElide :^ HasInitialAspiration)
   ]
   where
-  testDest n vs ds = testRoundDest n Rounds.shouldElide vs ds
+  testDest n vs ds = testRoundDest n Round.shouldElide vs ds
 
 main :: IO ()
 main = defaultMain

@@ -1,13 +1,14 @@
-module Grammar.Greek.Morph.Stage.ShouldElide where
+module Grammar.Greek.Morph.ShouldElide.Stage where
 
 import Prelude hiding (Word)
 import Control.Lens (over, _1, _2)
 import Data.Either.Validation
 import Grammar.Common
+import qualified Grammar.Greek.Morph.ShouldElide.Round as Round
+import Grammar.Greek.Morph.ShouldElide.Types
 import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
-import qualified Grammar.Greek.Morph.Rounds as Rounds
 
 addAspirationContext :: forall ctx w. (w -> InitialAspiration) -> [ctx :* w] -> [ctx :* w :* InitialAspiration]
 addAspirationContext f = fmap go . contextualize 1
@@ -20,7 +21,7 @@ addAspirationContext f = fmap go . contextualize 1
     -> ctx :* w :* InitialAspiration
   go ((sid, w), (_, ns)) = sid :^ w :^ goNext ns
 
-shouldElide :: forall ctx . RoundContext ctx Rounds.InvalidElisionForm Rounds.InvalidElisionCandidate
+shouldElide :: forall ctx . RoundContext ctx Round.InvalidElisionForm Round.InvalidElisionCandidate
   Word
   WordShouldElide
 shouldElide = Round to from
@@ -32,9 +33,9 @@ shouldElide = Round to from
 
   to2 :: [ctx :* Word :* CoreWord :* Elision :* InitialAspiration]
     -> Validation
-      [ctx :* ((Word :* (CoreWord :* (Elision :* InitialAspiration))) :* Rounds.InvalidElisionForm)]
+      [ctx :* ((Word :* (CoreWord :* (Elision :* InitialAspiration))) :* Round.InvalidElisionForm)]
       [ctx :* Word :* CoreWord :* ShouldElide :* InitialAspiration]
-  to2 = traverseWithItemContext . _2 $ roundTo Rounds.shouldElide
+  to2 = traverseWithItemContext . _2 $ roundTo Round.shouldElide
 
   to3 = over (_Failure . traverse . _2 . _1) fst
 
@@ -49,7 +50,7 @@ shouldElide = Round to from
 
   from1 = over (traverse . _2) (\(w, ia) -> w :^ wordShouldElideCoreWord w :^ wordShouldElideShouldElide w :^ ia)
     . addAspirationContext (coreWordAspiration . wordShouldElideCoreWord)
-  from2 = traverseWithItemContext . _2 $ roundFrom Rounds.shouldElide
+  from2 = traverseWithItemContext . _2 $ roundFrom Round.shouldElide
   from3 = over (_Failure . traverse . _2 . _1) fst
   from4 = over (_Success . traverse . _2) fromApply
   fromApply :: WordShouldElide :* CoreWord :* Elision :* a -> Word
