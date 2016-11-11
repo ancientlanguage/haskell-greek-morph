@@ -59,3 +59,36 @@ instance Serialize Number
 data Gender = Masculine | Feminine | Neuter
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Gender
+
+data Voice = Active | Middle | Passive
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Voice
+
+data Mood = Indicative | Subjunctive | Optative | Imperative
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Mood
+
+data Tense = Present | Imperfect | Future | Aorist | Perfect | Pluperfect | FuturePerfect
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Tense
+
+data Infinitive = Finite | Infinitive
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Infinitive
+
+data Person = Person1 | Person2 | Person3
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Person
+
+data Morph = MorphSet
+  { morphCase :: Maybe Case
+  , morphNumber :: Maybe Number
+  , morphGender :: Maybe Gender
+  , morphVoice :: Maybe Voice
+  , morphMood :: Maybe Mood
+  , morphTense :: Maybe Tense
+  , morphInfinitive :: Infinitive
+  , morphPerson :: Maybe Person
+  }
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Morph
