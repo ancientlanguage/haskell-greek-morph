@@ -14,7 +14,8 @@ import Grammar.Greek.Script.Word
 data WordClitic = WordClitic
   CoreWord
   (Maybe WordAccent)
-  Clitic
+  Enclitic
+  Proclitic
   Crasis
   ShouldElide
   MarkPreservation

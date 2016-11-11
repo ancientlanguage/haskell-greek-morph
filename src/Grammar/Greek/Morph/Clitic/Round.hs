@@ -6,15 +6,12 @@ import Grammar.Greek.Morph.Forms.Enclitic
 import Grammar.Greek.Morph.Forms.Proclitic
 import Grammar.Greek.Morph.Types
 
-clitic :: RoundId CoreWord (CoreWord :* Clitic)
+clitic :: RoundId CoreWord (CoreWord :* Enclitic :* Proclitic)
 clitic = RoundId to from
   where
-  to x =
-    if Set.member x encliticSet
-    then x :^ Enclitic
-    else if Set.member x procliticSet
-    then x :^ Proclitic
-    else x :^ NotClitic
+  to x = x
+    :^ (if Set.member x encliticSet then IsEnclitic else NotEnclitic)
+    :^ (if Set.member x procliticSet then IsProclitic else NotProclitic)
 
   encliticSet = Set.fromList . fmap accentedWordToCoreWord $ encliticForms
   procliticSet = Set.fromList procliticForms

@@ -27,7 +27,7 @@ import Grammar.Test.Round
 import Grammar.Test.Stage
 
 isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
-isUnique xs = assertEqual "expect equal" (List.sort xs) (Set.toList . Set.fromList $ xs)
+isUnique xs = mapM_ (\(x, y) -> assertEqual "equal" x y) $ zip (List.sort xs) (Set.toList . Set.fromList $ xs)
 
 uniqueFormsGroup = testGroup "unique forms" $
   [ testCase "unique enclitic" (isUnique encliticForms)
