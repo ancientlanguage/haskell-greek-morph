@@ -31,6 +31,7 @@ library
     Grammar.Greek.Morph.Smyth.Nouns.Declension1
     Grammar.Greek.Morph.Smyth.Nouns.Declension2
     Grammar.Greek.Morph.Smyth.Nouns.Declension3
+    Grammar.Greek.Morph.Smyth.Particles
     Grammar.Greek.Morph.Smyth.Verbs.Verbs
     Grammar.Greek.Morph.Stage
     Grammar.Greek.Morph.Types
