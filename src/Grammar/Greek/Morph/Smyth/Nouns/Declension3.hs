@@ -5,7 +5,8 @@ module Grammar.Greek.Morph.Smyth.Nouns.Declension3 where
 
 import Grammar.Greek.Morph.QuasiQuoters
 
-declension3Nouns =
+-- Smyth 256. STEMS IN A LABIAL (π, β, φ)  OR IN A PALATAL (κ, γ, χ)
+declension3LabialPalatal =
   [ [nounParadigm|
 Αἰθίοψ
 Αἰθίοπ-ος
