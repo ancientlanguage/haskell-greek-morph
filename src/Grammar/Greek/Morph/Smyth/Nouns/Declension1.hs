@@ -1,12 +1,12 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.Smyth.Nouns.FirstDeclension where
+module Grammar.Greek.Morph.Smyth.Nouns.Declension1 where
 
 import Grammar.Greek.Morph.QuasiQuoters
 
 -- Smyth 216. Feminines
-firstDeclensionFeminines =
+declension1Feminines =
   [ [nounParadigm|
 χώρᾱ
 χώρᾱς
@@ -100,7 +100,7 @@ firstDeclensionFeminines =
   ]
 
 -- Smyth 222
-firstDeclensionMasculines =
+declension2Masculines =
   [ [nounParadigm|
 νεᾱνίᾱ-ς
 νεᾱνίου

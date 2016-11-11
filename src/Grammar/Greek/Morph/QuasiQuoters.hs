@@ -56,6 +56,8 @@ ignoreParadigmChars = filter (flip Set.notMember ignoreChars)
   ignoreChars = Set.fromList
     [ '\772' -- macron
     , '-'
+    , '('
+    , ')'
     ]
 
 wordsExpLen :: Data a => Int -> (Maybe Word -> a) -> String -> Q Exp
