@@ -7,7 +7,7 @@ import Prelude hiding (Word)
 import GHC.Generics (Generic)
 import Data.Data
 import Data.Serialize (Serialize)
-import Grammar.Greek.Script.Types
+import Grammar.Greek.Script.Types hiding (Case)
 import Grammar.Greek.Script.Word
 
 data ShouldElide = ShouldElide | ShouldNotElide
@@ -47,3 +47,15 @@ instance Serialize Enclitic
 data Proclitic = IsProclitic | NotProclitic
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Proclitic
+
+data Case = Nominative | Genitive | Dative | Accusative | Vocative
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Case
+
+data Number = Singular | Dual | Plural
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Number
+
+data Gender = Masculine | Feminine | Neuter
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Gender
