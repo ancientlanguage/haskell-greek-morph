@@ -21,7 +21,6 @@ declension2 =
 ἵππων
 ἵπποις
 ἵππους
-
     |]
   , [nounParadigm|
 ἄνθρωπο-ς
@@ -37,7 +36,6 @@ declension2 =
 ἀνθρώπων
 ἀνθρώποις
 ἀνθρώπους
-
     |]
   , [nounParadigm|
 ὁδό-ς
