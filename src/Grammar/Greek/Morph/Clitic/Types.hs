@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Grammar.Greek.Morph.AccentHandling.Types where
+module Grammar.Greek.Morph.Clitic.Types where
 
 import Prelude hiding (Word)
 import GHC.Generics (Generic)
@@ -11,14 +11,14 @@ import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
 
-data WordAccentHandling = WordAccentHandling
+data WordClitic = WordClitic
   CoreWord
   (Maybe WordAccent)
-  AccentHandling
+  Clitic
   Crasis
   ShouldElide
   MarkPreservation
   Capitalization
   HasWordPunctuation
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize WordAccentHandling
+instance Serialize WordClitic

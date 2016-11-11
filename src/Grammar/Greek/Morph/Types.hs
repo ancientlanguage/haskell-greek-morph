@@ -40,6 +40,6 @@ wordToAccentedWord (Word asp ss fc a _ _ _ _ _) = AccentedWord asp ss fc a
 accentedWordToCoreWord :: AccentedWord -> CoreWord
 accentedWordToCoreWord (AccentedWord asp s fc _) = CoreWord asp s fc
 
-data AccentHandling = NormalAccentHandling | Enclitic | Proclitic
+data Clitic = NotClitic | Enclitic | Proclitic
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize AccentHandling
+instance Serialize Clitic
