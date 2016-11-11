@@ -9,14 +9,35 @@ import Data.Data
 import Data.Serialize (Serialize)
 import Data.Text (Text)
 import Grammar.Greek.Morph.Types
-import Grammar.Greek.Script.Types hiding (Case)
-import Grammar.Greek.Script.Word
+import Primary ()
 
 data ParadigmForm = ParadigmForm
   { paradigmFormText :: Text
   , paradigmFormWord :: AccentedWord
   }
-  deriving (Data, Typeable)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize ParadigmForm
+
+data Declension = Declension1 | Declension2 | Declension3 | IrregularDeclension
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Declension
+
+data Conjugation = Conjugation1Omega | Conjugation2MI | ConjugationIrregularMI
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Conjugation
+
+data FormKind
+  = NounFormKind
+  | PronounFormKind
+  | AdjectiveFormKind
+  | AdverbFormKind
+  | NumeralFormKind
+  | VerbFormKind
+  | ParticipleFormKind
+  | InfinitiveFormKind
+  | ParticleFormKind
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize FormKind
 
 data NounParadigm = NounParadigm
   { nounParadigmSgNom :: Maybe ParadigmForm
@@ -33,7 +54,8 @@ data NounParadigm = NounParadigm
   , nounParadigmPlDat :: Maybe ParadigmForm
   , nounParadigmPlAcc :: Maybe ParadigmForm
   }
-  deriving (Data, Typeable)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize NounParadigm
 
 data VerbParadigm = VerbParadigm
   { verbParadigmSg1 :: Maybe ParadigmForm
@@ -47,4 +69,5 @@ data VerbParadigm = VerbParadigm
   , verbParadigmPl2 :: Maybe ParadigmForm
   , verbParadigmPl3 :: Maybe ParadigmForm
   }
-  deriving (Data, Typeable)
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize VerbParadigm
