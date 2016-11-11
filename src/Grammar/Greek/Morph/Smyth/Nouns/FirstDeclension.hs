@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.Smyth.Nouns.Nouns where
+module Grammar.Greek.Morph.Smyth.Nouns.FirstDeclension where
 
 import Grammar.Greek.Morph.QuasiQuoters
 
@@ -163,7 +163,7 @@ firstDeclensionMasculines =
     |]
   ]
 
-  -- Smyth 227. Contracts
+-- Smyth 227. Contracts
 firstDeclensionContracts =
   [ [nounParadigm|
 μνᾶ
