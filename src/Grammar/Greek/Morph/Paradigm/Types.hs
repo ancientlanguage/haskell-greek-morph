@@ -19,7 +19,7 @@ data ParadigmExemplar = ParadigmExemplar
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize ParadigmExemplar
 
-data Declension = Declension1 | Declension2 | Declension3 | IrregularDeclension
+data Declension = Declension1 | Declension2 | Declension3 | DeclensionIrregular
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Declension
 
@@ -40,13 +40,15 @@ data FormKind
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize FormKind
 
-data ParadigmEnding = ParadigmEnding
-  { paradigmEndingExemplar :: Text
-  , paradigmEndingAccent :: WordAccent
-  , paradigmEndingSuffix :: [Phoneme]
+data ParadigmForm = ParadigmForm
+  { paradigmFormKind :: FormKind
+  , paradigmFormExemplar :: ParadigmExemplar
+  , paradigmFormMorph :: Morph
+  , paradigmFormAccent :: WordAccent
+  , paradigmFormEnding :: [Phoneme]
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize ParadigmEnding
+instance Serialize ParadigmForm
 
 data NounParadigm = NounParadigm
   { nounParadigmSgNom :: Maybe ParadigmExemplar

@@ -72,26 +72,24 @@ data Tense = Present | Imperfect | Future | Aorist | Perfect | Pluperfect | Futu
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Tense
 
-data Infinitive = Finite | Infinitive
-  deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize Infinitive
-
 data Person = Person1 | Person2 | Person3
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Person
 
-data Morph = MorphSet
+data Morph = Morph
   { morphCase :: Maybe Case
   , morphNumber :: Maybe Number
   , morphGender :: Maybe Gender
   , morphVoice :: Maybe Voice
   , morphMood :: Maybe Mood
   , morphTense :: Maybe Tense
-  , morphInfinitive :: Infinitive
   , morphPerson :: Maybe Person
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Morph
+
+substantiveMorph :: Case -> Number -> Gender -> Morph
+substantiveMorph c n g = Morph (Just c) (Just n) (Just g) Nothing Nothing Nothing Nothing
 
 data Phoneme
   = Ph_Aspiration
