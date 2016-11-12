@@ -26,6 +26,7 @@ import Grammar.Greek.Morph.Forms.Proclitic (procliticForms)
 import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList)
 import Grammar.Test.Round
 import Grammar.Test.Stage
+import WordTests
 
 allSplitsListGroup = testGroup "allSplitsList" $
   [ testCase "empty" $ assertEqual "empty"
@@ -61,7 +62,8 @@ shouldElideGroup = testGroup "shouldElide" $
 
 main :: IO ()
 main = defaultMain
-  [ allSplitsListGroup
+  [ coreWordPhonemeRound
+  , allSplitsListGroup
   , uniqueFormsGroup
   , shouldElideGroup
   , testGroupStages "morph stage" Stage.morph id (pure <$> Serialize.readScript)

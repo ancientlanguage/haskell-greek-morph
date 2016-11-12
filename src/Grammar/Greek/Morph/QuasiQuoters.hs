@@ -4,7 +4,7 @@ module Grammar.Greek.Morph.QuasiQuoters where
 
 import Prelude hiding (Word)
 import Control.Applicative
-import Control.Lens (over)
+import Control.Lens (over, _1, _2)
 import Data.Data
 import Data.Either.Validation
 import Data.Generics (extQ)
@@ -27,18 +27,18 @@ handleText x = Just $ appE (varE 'Text.pack) $ litE $ StringL $ Text.unpack x
 trim :: String -> String
 trim = Text.unpack . Text.strip . Text.pack
 
-parseWordMap :: (String -> String) -> String -> Validation String Word
-parseWordMap f x = case (roundTo Stage.script) [x :^ (trim . f . decompose) x :^ NoWordPunctuation] of
+parseWordPairMap :: (String -> String) -> String -> Validation String (String :* Word)
+parseWordPairMap f x = case (roundTo Stage.script) [x :^ (trim . f . decompose) x :^ NoWordPunctuation] of
   Failure es -> Failure $ concatMap (\(c, e) -> c ++ " -- " ++ show e ++ "\n") es
-  Success [(_, w)] -> Success w
+  Success [(s, w)] -> Success $ s :^ w
   Success w -> Failure $ "Unexpected word: " ++ show w
 
 parseStar :: String -> Validation String (Maybe a)
 parseStar "*" = Success Nothing
 parseStar x = Failure $ "not a star: " ++ x
 
-parseWords :: String -> Validation String [Word]
-parseWords = traverse (parseWordMap id) . words
+parseWordPairs :: String -> Validation String [(String :* Word)]
+parseWordPairs = traverse (parseWordPairMap id) . words
 
 ignoreParadigmChars :: String -> String
 ignoreParadigmChars = filter (flip Set.notMember ignoreChars)
@@ -53,10 +53,14 @@ ignoreParadigmChars = filter (flip Set.notMember ignoreChars)
 parseParadigmForms :: String -> Validation String [Maybe ParadigmForm]
 parseParadigmForms = traverse (\x -> parseStar x <|> doWord x) . words
   where
-  doWord y = over _Success (pure . ParadigmForm (Text.pack y) . wordToAccentedWord) . parseWordMap ignoreParadigmChars $ y
+  doWord
+    = over _Success (pure . uncurry ParadigmForm)
+    . over (_Success . _1) Text.pack
+    . over (_Success . _2) wordToAccentedWord
+    . parseWordPairMap ignoreParadigmChars
 
-wordsExp :: Data a => (Word -> a) -> String -> Q Exp
-wordsExp f x = case parseWords x of
+wordPairsExp :: Data a => (String :* Word -> a) -> String -> Q Exp
+wordPairsExp f x = case parseWordPairs x of
   Failure e -> fail e
   Success ws -> dataToExpQ (const Nothing `extQ` handleText) $ fmap f ws
 
@@ -74,7 +78,15 @@ verbParadigmParser x = case parseParadigmForms x of
 
 coreWords :: QuasiQuoter
 coreWords = QuasiQuoter
-  { quoteExp = wordsExp wordToCoreWord
+  { quoteExp = wordPairsExp (wordToCoreWord . snd)
+  , quotePat = undefined
+  , quoteType = undefined
+  , quoteDec = undefined
+  }
+
+coreWordPairs :: QuasiQuoter
+coreWordPairs = QuasiQuoter
+  { quoteExp = wordPairsExp (over _2 wordToCoreWord)
   , quotePat = undefined
   , quoteType = undefined
   , quoteDec = undefined
@@ -82,7 +94,7 @@ coreWords = QuasiQuoter
 
 accentedWords :: QuasiQuoter
 accentedWords = QuasiQuoter
-  { quoteExp = wordsExp wordToAccentedWord
+  { quoteExp = wordPairsExp (wordToAccentedWord . snd)
   , quotePat = undefined
   , quoteType = undefined
   , quoteDec = undefined
