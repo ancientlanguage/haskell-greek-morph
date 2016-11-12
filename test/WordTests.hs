@@ -9,22 +9,4 @@ import Grammar.Greek.Morph.Types
 import Grammar.Test.Round
 
 coreWordPhonemeRound = testGroup "coreWordPhonemeRound" $ fmap (uncurry $ testRoundId phonemeRound)
-  [coreWordPairs|
-  ἀντί
-  ἀπό
-  διά
-  ἐπί
-  κατά
-  μετά
-  παρά
-  ὑπό
-
-  ἀλλά
-
-  δέ
-  μηδέ
-  οὐδέ
-
-  τοῦτο
-  φυγῆς
-  |]
+  [coreWordPairs| ἀντί διά κατά ὑπό δέ οὐδέ τοῦτο φυγῆς γλῶττῃ |]
