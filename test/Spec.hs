@@ -42,13 +42,15 @@ allSplitsSyllableGroup = testGroup "allSplitsSyllable" $
     [ ([] :^ []) :^ ([Syllable [] (VS_Vowel V_α)] :^ [])
     , ([Syllable [] (VS_Vowel V_α)] :^ []) :^ ([] :^ [])
     ]
-  -- , testCase "3 consonants" $ assertEqual "3 consonants"
-  --   (allSplitsSyllable (Syllable [CR_δ, CR_π, CR_φ] (VS_Vowel V_α)))
-  --   [ [] :^ Syllable [CR_δ, CR_π, CR_φ] (VS_Vowel V_α)
-  --   , [CR_δ] :^ Syllable [CR_π, CR_φ] (VS_Vowel V_α)
-  --   , [CR_δ, CR_π] :^ Syllable [CR_φ] (VS_Vowel V_α)
-  --   , [CR_δ, CR_π, CR_φ] :^ Syllable [] (VS_Vowel V_α)
-  --   ]
+  , testCase "2 cons syll / 2 final" $ assertEqual "3 consonants"
+    (allSplitsSyllable $ Syllable [CR_δ, CR_π] (VS_Vowel V_α) :^ [CR_β, CR_φ])
+    [ ([] :^ []) :^ ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
+    , ([] :^ [CR_δ]) :^ ([Syllable [CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
+    , ([] :^ [CR_δ, CR_π]) :^ ([Syllable [] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
+    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ []) :^ ([] :^ [CR_β, CR_φ])
+    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β]) :^ ([] :^ [CR_φ])
+    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ]) :^ ([] :^ [])
+    ]
   ]
 
 isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
