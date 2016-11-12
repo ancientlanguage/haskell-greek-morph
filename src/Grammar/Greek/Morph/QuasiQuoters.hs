@@ -50,11 +50,11 @@ ignoreParadigmChars = filter (flip Set.notMember ignoreChars)
     , ')'
     ]
 
-parseParadigmForms :: String -> Validation String [Maybe ParadigmForm]
-parseParadigmForms = traverse (\x -> parseStar x <|> doWord x) . words
+parseParadigmExemplars :: String -> Validation String [Maybe ParadigmExemplar]
+parseParadigmExemplars = traverse (\x -> parseStar x <|> doWord x) . words
   where
   doWord
-    = over _Success (pure . uncurry ParadigmForm)
+    = over _Success (pure . uncurry ParadigmExemplar)
     . over (_Success . _1) Text.pack
     . over (_Success . _2) wordToAccentedWord
     . parseWordPairMap ignoreParadigmChars
@@ -65,13 +65,13 @@ wordPairsExp f x = case parseWordPairs x of
   Success ws -> dataToExpQ (const Nothing `extQ` handleText) $ fmap f ws
 
 nounParadigmParser :: String -> Q Exp
-nounParadigmParser x = case parseParadigmForms x of
+nounParadigmParser x = case parseParadigmExemplars x of
   Failure e -> fail e
   Success [a,b,c,d,e, f,g, h,i,j,k] -> dataToExpQ (const Nothing `extQ` handleText) $ NounParadigm a b c d e f g h i j k
   Success ws -> fail $ "Incorrect number of noun forms: " ++ show (length ws)
 
 verbParadigmParser :: String -> Q Exp
-verbParadigmParser x = case parseParadigmForms x of
+verbParadigmParser x = case parseParadigmExemplars x of
   Failure e -> fail e
   Success [a,b,c, d,e, f,g,h] -> dataToExpQ (const Nothing `extQ` handleText) $ VerbParadigm a b c d e f g h
   Success ws -> fail $ "Incorrect number of verb forms: " ++ show (length ws)

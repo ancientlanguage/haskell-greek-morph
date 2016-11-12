@@ -12,12 +12,12 @@ import Grammar.Greek.Script.Word
 import Grammar.Greek.Morph.Types
 import Primary ()
 
-data ParadigmForm = ParadigmForm
-  { paradigmFormText :: Text
-  , paradigmFormWord :: AccentedWord
+data ParadigmExemplar = ParadigmExemplar
+  { paradigmExemplarText :: Text
+  , paradigmExemplarWord :: AccentedWord
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize ParadigmForm
+instance Serialize ParadigmExemplar
 
 data Declension = Declension1 | Declension2 | Declension3 | IrregularDeclension
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
@@ -28,12 +28,12 @@ data Conjugation = Conjugation1Omega | Conjugation2MI | ConjugationIrregularMI
 instance Serialize Conjugation
 
 data FormKind
-  = NounFormKind
+  = NounFormKind Declension
   | PronounFormKind
   | AdjectiveFormKind
   | AdverbFormKind
   | NumeralFormKind
-  | VerbFormKind
+  | VerbFormKind Conjugation
   | ParticipleFormKind
   | InfinitiveFormKind
   | ParticleFormKind
@@ -43,40 +43,40 @@ instance Serialize FormKind
 data ParadigmEnding = ParadigmEnding
   { paradigmEndingExemplar :: Text
   , paradigmEndingAccent :: WordAccent
-  , paradigmEndingSuffix :: CoreWord
+  , paradigmEndingSuffix :: [Phoneme]
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize ParadigmEnding
 
 data NounParadigm = NounParadigm
-  { nounParadigmSgNom :: Maybe ParadigmForm
-  , nounParadigmSgGen :: Maybe ParadigmForm
-  , nounParadigmSgDat :: Maybe ParadigmForm
-  , nounParadigmSgAcc :: Maybe ParadigmForm
-  , nounParadigmSgVoc :: Maybe ParadigmForm
+  { nounParadigmSgNom :: Maybe ParadigmExemplar
+  , nounParadigmSgGen :: Maybe ParadigmExemplar
+  , nounParadigmSgDat :: Maybe ParadigmExemplar
+  , nounParadigmSgAcc :: Maybe ParadigmExemplar
+  , nounParadigmSgVoc :: Maybe ParadigmExemplar
 
-  , nounParadigmDualNomAccVoc :: Maybe ParadigmForm
-  , nounParadigmDualGenDat :: Maybe ParadigmForm
+  , nounParadigmDualNomAccVoc :: Maybe ParadigmExemplar
+  , nounParadigmDualGenDat :: Maybe ParadigmExemplar
 
-  , nounParadigmPlNomVoc :: Maybe ParadigmForm
-  , nounParadigmPlGen :: Maybe ParadigmForm
-  , nounParadigmPlDat :: Maybe ParadigmForm
-  , nounParadigmPlAcc :: Maybe ParadigmForm
+  , nounParadigmPlNomVoc :: Maybe ParadigmExemplar
+  , nounParadigmPlGen :: Maybe ParadigmExemplar
+  , nounParadigmPlDat :: Maybe ParadigmExemplar
+  , nounParadigmPlAcc :: Maybe ParadigmExemplar
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize NounParadigm
 
 data VerbParadigm = VerbParadigm
-  { verbParadigmSg1 :: Maybe ParadigmForm
-  , verbParadigmSg2 :: Maybe ParadigmForm
-  , verbParadigmSg3 :: Maybe ParadigmForm
+  { verbParadigmSg1 :: Maybe ParadigmExemplar
+  , verbParadigmSg2 :: Maybe ParadigmExemplar
+  , verbParadigmSg3 :: Maybe ParadigmExemplar
 
-  , verbParadigmDual2 :: Maybe ParadigmForm
-  , verbParadigmDual3 :: Maybe ParadigmForm
+  , verbParadigmDual2 :: Maybe ParadigmExemplar
+  , verbParadigmDual3 :: Maybe ParadigmExemplar
 
-  , verbParadigmPl1 :: Maybe ParadigmForm
-  , verbParadigmPl2 :: Maybe ParadigmForm
-  , verbParadigmPl3 :: Maybe ParadigmForm
+  , verbParadigmPl1 :: Maybe ParadigmExemplar
+  , verbParadigmPl2 :: Maybe ParadigmExemplar
+  , verbParadigmPl3 :: Maybe ParadigmExemplar
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize VerbParadigm

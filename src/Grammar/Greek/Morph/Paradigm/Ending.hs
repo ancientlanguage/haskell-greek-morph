@@ -1,6 +1,8 @@
 module Grammar.Greek.Morph.Paradigm.Ending where
 
+import qualified Data.List as List
 import Grammar.Common
+import Grammar.Greek.Morph.Phoneme.Round
 import Grammar.Greek.Morph.Types
 import Grammar.Greek.Morph.Paradigm.Types
 import Grammar.Greek.Script.Types
@@ -11,6 +13,16 @@ allSplitsList = go []
   where
   go xs [] = [xs :^ []]
   go xs ys@(y : ys') = xs :^ ys : go (xs ++ [y]) ys'
+
+longestPrefix :: Eq a => [[a]] -> [a]
+longestPrefix [] = []
+longestPrefix (x : xs) = go (reverse . fmap fst . allSplitsList $ x) xs
+  where
+  go [] _ = []
+  go (p : ps) ys =
+    if and (fmap (List.isPrefixOf p) ys)
+    then p
+    else go ps ys
 
 {-
 -- cda

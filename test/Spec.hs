@@ -23,7 +23,7 @@ import qualified Grammar.Greek.Morph.Stage as Stage
 import Grammar.Greek.Morph.Forms.Eliding (elidingForms)
 import Grammar.Greek.Morph.Forms.Enclitic (encliticForms)
 import Grammar.Greek.Morph.Forms.Proclitic (procliticForms)
-import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList)
+import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList, longestPrefix)
 import Grammar.Test.Round
 import Grammar.Test.Stage
 import WordTests
@@ -35,6 +35,11 @@ allSplitsListGroup = testGroup "allSplitsList" $
   , testCase "123" $ assertEqual "123"
     (allSplitsList [1,2,3])
     [[] :^ [1,2,3], [1] :^ [2,3], [1,2] :^ [3], [1,2,3] :^ []]
+  ]
+
+longestPrefixGroup = testGroup "longestPrefix" $
+  [ testCase "empty" $ assertEqual "empty" ([] :: [()]) (longestPrefix [])
+  , testCase "123" $ assertEqual "123" [1,2,3] (longestPrefix [[1,2,3], [1,2,3,4,5], [1,2,3,4]])
   ]
 
 isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
@@ -63,6 +68,7 @@ shouldElideGroup = testGroup "shouldElide" $
 main :: IO ()
 main = defaultMain
   [ coreWordPhonemeRound
+  , longestPrefixGroup
   , allSplitsListGroup
   , uniqueFormsGroup
   , shouldElideGroup
