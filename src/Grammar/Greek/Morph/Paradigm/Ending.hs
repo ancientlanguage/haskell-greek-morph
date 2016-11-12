@@ -12,23 +12,49 @@ allSplitsList = go []
   go xs [] = [xs :^ []]
   go xs ys@(y : ys') = xs :^ ys : go (xs ++ [y]) ys'
 
--- cda, fg
--- [][] [cda][fg]
--- [][c] [da][fg]
--- [][cd] [a][fg]
--- [cda][] [][fg]
--- [cda][f] [][g]
--- [cda][fg] [][]
+{-
+-- cda
+-- [][] [cda][]
+-- [][c] [da][]
+-- [][cd] [a][]
+-- [cda][] [][]
 allSplitsSyllable
-  :: Syllable :* [ConsonantRho]
+  :: Syllable
   -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
-allSplitsSyllable (s@(Syllable cs v), fc)
-  = fmap (\(ls, rs) -> ([] :^ ls) :^ ([Syllable rs v] :^ fc)) (allSplitsList cs)
-  ++ fmap (\(ls, rs) -> ([s] :^ ls) :^ ([] :^ rs)) (allSplitsList fc)
+allSplitsSyllable s@(Syllable cs v)
+  = fmap (\(ls, rs) -> ([] :^ ls) :^ ([Syllable rs v] :^ [])) (allSplitsList cs)
+  ++ [([s] :^ []) :^ ([] :^ [])]
 
-allSplits :: [CoreWord] -> [[CoreWord]]
-allSplits [] = []
-allSplits (CoreWord asp ss fc : xs) = []
+mergeSyllableWithFinalConsonants
+  :: [Syllable]
+  -> Syllable
+  -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+  -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+mergeSyllableWithFinalConsonants _ _ [] = []
+mergeSyllableWithFinalConsonants ss s ((([], fc), rs) : xs) = ([s] :^ fc) :^ rs ++ mergeSyllableWithFinalConsonants s xs
+mergeSyllableWithFinalConsonants _ _ xs@(((_ : _, _), _) : _) = xs
+
+concatUniteFinals
+  :: [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+  -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+  -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+concatUniteFinals xs ys = case reverse xs :^ ys of
+  (((s :^ []) :^ ([] :^ [])) : xs') :^ (_ : _) -> reverse xs' ++ mergeSyllableWithFinalConsonants s ys
+  _ -> xs ++ ys
+
+allSplitsSyllableList
+  :: [Syllable]
+  -> [([Syllable] :* [ConsonantRho]) :* ([Syllable] :* [ConsonantRho])]
+allSplitsSyllableList [] = [([] :^ []) :^ ([] :^ [])]
+allSplitsSyllableList (s : ss) = concatUniteFinals (allSplitsSyllable s) (allSplitsSyllableList ss)
+
+splitsAddFinalConsonants :: [CoreWord :* CoreWord] -> [ConsonantRho] -> [CoreWord :* CoreWord]
+splitsAddFinalConsonants = undefined
+
+allSplits :: CoreWord -> [[CoreWord :* CoreWord]]
+allSplits (CoreWord asp [] fc) = []
+allSplits (CoreWord asp (s :: ss) fc) = []
 
 extractEndings :: [Maybe ParadigmForm] -> Either String [Maybe ParadigmEnding]
 extractEndings _ = Right []
+-}

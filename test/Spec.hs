@@ -23,7 +23,7 @@ import qualified Grammar.Greek.Morph.Stage as Stage
 import Grammar.Greek.Morph.Forms.Eliding (elidingForms)
 import Grammar.Greek.Morph.Forms.Enclitic (encliticForms)
 import Grammar.Greek.Morph.Forms.Proclitic (procliticForms)
-import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList, allSplitsSyllable)
+import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList)
 import Grammar.Test.Round
 import Grammar.Test.Stage
 
@@ -34,23 +34,6 @@ allSplitsListGroup = testGroup "allSplitsList" $
   , testCase "123" $ assertEqual "123"
     (allSplitsList [1,2,3])
     [[] :^ [1,2,3], [1] :^ [2,3], [1,2] :^ [3], [1,2,3] :^ []]
-  ]
-
-allSplitsSyllableGroup = testGroup "allSplitsSyllable" $
-  [ testCase "single" $ assertEqual "single"
-    (allSplitsSyllable $ Syllable [] (VS_Vowel V_α) :^ [])
-    [ ([] :^ []) :^ ([Syllable [] (VS_Vowel V_α)] :^ [])
-    , ([Syllable [] (VS_Vowel V_α)] :^ []) :^ ([] :^ [])
-    ]
-  , testCase "2 cons syll / 2 final" $ assertEqual "3 consonants"
-    (allSplitsSyllable $ Syllable [CR_δ, CR_π] (VS_Vowel V_α) :^ [CR_β, CR_φ])
-    [ ([] :^ []) :^ ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
-    , ([] :^ [CR_δ]) :^ ([Syllable [CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
-    , ([] :^ [CR_δ, CR_π]) :^ ([Syllable [] (VS_Vowel V_α)] :^ [CR_β, CR_φ])
-    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ []) :^ ([] :^ [CR_β, CR_φ])
-    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β]) :^ ([] :^ [CR_φ])
-    , ([Syllable [CR_δ, CR_π] (VS_Vowel V_α)] :^ [CR_β, CR_φ]) :^ ([] :^ [])
-    ]
   ]
 
 isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
@@ -79,7 +62,6 @@ shouldElideGroup = testGroup "shouldElide" $
 main :: IO ()
 main = defaultMain
   [ allSplitsListGroup
-  , allSplitsSyllableGroup
   , uniqueFormsGroup
   , shouldElideGroup
   , testGroupStages "morph stage" Stage.morph id (pure <$> Serialize.readScript)

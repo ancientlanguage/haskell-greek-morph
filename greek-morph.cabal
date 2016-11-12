@@ -24,6 +24,7 @@ library
     Grammar.Greek.Morph.Forms.Proclitic
     Grammar.Greek.Morph.Paradigm.Ending
     Grammar.Greek.Morph.Paradigm.Types
+    Grammar.Greek.Morph.Phoneme
     Grammar.Greek.Morph.QuasiQuoters
     Grammar.Greek.Morph.ShouldElide.Round
     Grammar.Greek.Morph.ShouldElide.Stage
