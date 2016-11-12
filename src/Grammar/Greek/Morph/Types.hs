@@ -92,3 +92,10 @@ data Morph = MorphSet
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Morph
+
+data Phoneme
+  = Ph_Aspiration
+  | Ph_Consonant ConsonantRho
+  | Ph_Vocalic VocalicSyllable
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Phoneme

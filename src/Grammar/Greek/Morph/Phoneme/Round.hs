@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Grammar.Greek.Morph.Phoneme where
+module Grammar.Greek.Morph.Phoneme.Round where
 
 import Prelude hiding (Word)
 import GHC.Generics (Generic)
@@ -12,13 +12,6 @@ import Grammar.Greek.Morph.Types
 import Grammar.Greek.Script.Types hiding (Case)
 import Grammar.Greek.Script.Word
 import qualified Grammar.Common.Round as Round
-
-data Phoneme
-  = Ph_Aspiration
-  | Ph_Consonant ConsonantRho
-  | Ph_Vocalic VocalicSyllable
-  deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize Phoneme
 
 coreWordToPhonemes :: CoreWord -> [Phoneme]
 coreWordToPhonemes (CoreWord asp ss fc) = addAsp asp $ concatMap doSyll ss ++ doCons fc
@@ -48,5 +41,5 @@ phonemesToCoreWord xs@(x : _) =
       _ -> NoInitialAspiration
   in CoreWord asp ss fc
 
-phonemeRound :: RoundId CoreWord [Phoneme]
-phonemeRound = RoundId coreWordToPhonemes phonemesToCoreWord
+phoneme :: RoundId CoreWord [Phoneme]
+phoneme = RoundId coreWordToPhonemes phonemesToCoreWord
