@@ -22,6 +22,7 @@ library
     Grammar.Greek.Morph.Forms.Eliding
     Grammar.Greek.Morph.Forms.Enclitic
     Grammar.Greek.Morph.Forms.Proclitic
+    Grammar.Greek.Morph.Paradigm.Ending
     Grammar.Greek.Morph.Paradigm.Types
     Grammar.Greek.Morph.QuasiQuoters
     Grammar.Greek.Morph.ShouldElide.Round

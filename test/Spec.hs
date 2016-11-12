@@ -23,8 +23,14 @@ import qualified Grammar.Greek.Morph.Stage as Stage
 import Grammar.Greek.Morph.Forms.Eliding (elidingForms)
 import Grammar.Greek.Morph.Forms.Enclitic (encliticForms)
 import Grammar.Greek.Morph.Forms.Proclitic (procliticForms)
+import Grammar.Greek.Morph.Paradigm.Ending (allSplitsList)
 import Grammar.Test.Round
 import Grammar.Test.Stage
+
+allSplitsListGroup = testGroup "allSplitsList" $
+  [ testCase "empty" $ assertEqual "empty" [[] :^ []] (allSplitsList ([] :: [()]))
+  , testCase "123" $ assertEqual "123" [[] :^ [1,2,3], [1] :^ [2,3], [1,2] :^ [3], [1,2,3] :^ []] (allSplitsList [1,2,3])
+  ]
 
 isUnique :: (Show a, Eq a, Ord a) => [a] -> Assertion
 isUnique xs = mapM_ (\(x, y) -> assertEqual "equal" x y) $ zip (List.sort xs) (Set.toList . Set.fromList $ xs)
@@ -51,7 +57,8 @@ shouldElideGroup = testGroup "shouldElide" $
 
 main :: IO ()
 main = defaultMain
-  [ shouldElideGroup
+  [ allSplitsListGroup
+  , shouldElideGroup
   , uniqueFormsGroup
   , testGroupStages "morph stage" Stage.morph id (pure <$> Serialize.readScript)
   ]
