@@ -44,7 +44,7 @@ data ParadigmForm = ParadigmForm
   { paradigmFormKind :: FormKind
   , paradigmFormExemplar :: ParadigmExemplar
   , paradigmFormMorph :: Morph
-  , paradigmFormAccent :: WordAccent
+  , paradigmFormAccent :: Maybe WordAccent
   , paradigmFormEnding :: [Phoneme]
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
