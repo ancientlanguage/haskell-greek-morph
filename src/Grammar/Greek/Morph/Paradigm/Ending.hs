@@ -24,25 +24,43 @@ longestPrefix (x : xs) = go (reverse . fmap fst . allSplitsList $ x) xs
     then p
     else go ps ys
 
-nounParadigmForms :: Gender -> NounParadigm -> [Morph :* ParadigmExemplar]
-nounParadigmForms g (NounParadigm sgNom sgGen sgDat sgAcc sgVoc duNAV duGD plNomV plGen plDat plAcc) = catMaybes . fmap (_2 id) $
-  [ substantiveMorph Nominative Singular g :^ sgNom
-  , substantiveMorph Genitive Singular g :^ sgGen
-  , substantiveMorph Dative Singular g :^ sgDat
-  , substantiveMorph Accusative Singular g :^ sgAcc
-  , substantiveMorph Vocative Singular g :^ sgVoc
+nounParadigmForms :: Morph -> NounParadigm -> [Morph :* ParadigmExemplar]
+nounParadigmForms m (NounParadigm sgNom sgGen sgDat sgAcc sgVoc duNAV duGD plNomV plGen plDat plAcc) = catMaybes . fmap (_2 id) $
+  [ setMorph Nominative Singular :^ sgNom
+  , setMorph Genitive Singular :^ sgGen
+  , setMorph Dative Singular :^ sgDat
+  , setMorph Accusative Singular :^ sgAcc
+  , setMorph Vocative Singular :^ sgVoc
   ]
   ++
-  fmap (\c -> substantiveMorph c Dual g :^ duNAV) [Nominative, Accusative, Vocative]
+  fmap (\c -> setMorph c Dual :^ duNAV) [Nominative, Accusative, Vocative]
   ++
-  fmap (\c -> substantiveMorph c Dual g :^ duGD) [Genitive, Dative]
+  fmap (\c -> setMorph c Dual :^ duGD) [Genitive, Dative]
   ++
-  fmap (\c -> substantiveMorph c Plural g :^ plNomV) [Nominative, Vocative]
+  fmap (\c -> setMorph c Plural :^ plNomV) [Nominative, Vocative]
   ++
-  [ substantiveMorph Genitive Plural g :^ plGen
-  , substantiveMorph Dative Plural g :^ plDat
-  , substantiveMorph Accusative Plural g :^ plAcc
+  [ setMorph Genitive Plural :^ plGen
+  , setMorph Dative Plural :^ plDat
+  , setMorph Accusative Plural :^ plAcc
   ]
+  where
+  setMorph c n = m { morphCase = Just c, morphNumber = Just n }
+
+verbParadigmForms :: Morph -> VerbParadigm -> [Morph :* ParadigmExemplar]
+verbParadigmForms m (VerbParadigm sg1 sg2 sg3 dual2 dual3 pl1 pl2 pl3) = catMaybes . fmap (_2 id) $
+  [ setMorph Singular Person1 :^ sg1
+  , setMorph Singular Person2 :^ sg2
+  , setMorph Singular Person3 :^ sg3
+
+  , setMorph Dual Person2 :^ dual2
+  , setMorph Dual Person3 :^ dual3
+
+  , setMorph Plural Person1 :^ pl1
+  , setMorph Plural Person2 :^ pl2
+  , setMorph Plural Person3 :^ pl3
+  ]
+  where
+  setMorph n p = m { morphNumber = Just n, morphPerson = Just p }
 
 getParadigmForms :: FormKind -> [Morph :* ParadigmExemplar] -> [ParadigmForm]
 getParadigmForms fk es =
