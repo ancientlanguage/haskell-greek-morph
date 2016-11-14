@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Grammar.Greek.Morph.Smyth.Particles where
+module Grammar.Greek.Morph.Smyth.Particles.ConjunctionsSubordinating where
 
 import Grammar.Greek.Morph.QuasiQuoters
 
