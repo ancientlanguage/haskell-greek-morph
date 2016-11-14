@@ -38,14 +38,19 @@ parseStar :: String -> Validation String (Maybe a)
 parseStar "*" = Success Nothing
 parseStar x = Failure $ "not a star: " ++ x
 
+macronChar :: Char
+macronChar = '\772'
+
 parseWordPairs :: String -> Validation String [(String :* Word)]
-parseWordPairs = traverse (parseWordPairMap id) . words
+parseWordPairs = traverse (parseWordPairMap ignoreMacron) . words
+  where
+  ignoreMacron = filter (/= macronChar)
 
 ignoreParadigmChars :: String -> String
 ignoreParadigmChars = filter (flip Set.notMember ignoreChars)
   where
   ignoreChars = Set.fromList
-    [ '\772' -- macron
+    [ macronChar
     , '-'
     , '('
     , ')'

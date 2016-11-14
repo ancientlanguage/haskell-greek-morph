@@ -33,11 +33,12 @@ library
     Grammar.Greek.Morph.ShouldElide.Types
     Grammar.Greek.Morph.Serialize
     Grammar.Greek.Morph.Smyth.Adjectives
+    Grammar.Greek.Morph.Smyth.Conjunctions.Coordinating
+    Grammar.Greek.Morph.Smyth.Conjunctions.Subordinating
     Grammar.Greek.Morph.Smyth.Nouns.Declension1
     Grammar.Greek.Morph.Smyth.Nouns.Declension2
     Grammar.Greek.Morph.Smyth.Nouns.Declension3
-    Grammar.Greek.Morph.Smyth.Conjunctions.Coordinating
-    Grammar.Greek.Morph.Smyth.Conjunctions.Subordinating
+    Grammar.Greek.Morph.Smyth.Prepositions
     Grammar.Greek.Morph.Smyth.Verbs.Participles
     Grammar.Greek.Morph.Smyth.Verbs.Verbs
     Grammar.Greek.Morph.Stage
