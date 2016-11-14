@@ -83,8 +83,8 @@ declension3LabialPalatal =
 αἶγ-ας
     |]
   , [nounParadigm|
-θρίξ
-θρίξ
+*
+*
 τριχ-ός
 τριχ-ί
 τρίχ-α
@@ -94,8 +94,23 @@ declension3LabialPalatal =
 
 τρίχ-ες
 τριχ-ῶν
-θριξί(ν)
+*
 τρίχ-ας
+    |]
+  , [nounParadigm|
+θρίξ
+θρίξ
+*
+*
+*
+
+*
+*
+
+*
+*
+θριξί(ν)
+*
     |]
   ]
 
@@ -224,7 +239,7 @@ declension3Neuter =
 ἡπάτ-ων
 ἥπασι(ν)
 ἥπατ-α
-    |]  
+    |]
   , [nounParadigm|
 τέρας
 τέρατ-ος
@@ -239,7 +254,7 @@ declension3Neuter =
 τεράτ-ων
 τέρασι(ν)
 τέρατ-α
-  |]  
+  |]
   , [nounParadigm|
 κέρας
 κέρᾱτ-ος
@@ -341,7 +356,7 @@ declension3LiquidNasal =
 ἀγῶν-α
 ἀγών
 
-ἁγῶν-ε
+ἀγῶν-ε
 ἀγών-οιν
 
 ἀγῶν-ες

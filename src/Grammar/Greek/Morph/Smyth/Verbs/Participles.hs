@@ -57,20 +57,22 @@ participlesOne =
     |]
     -- masculine
     , [nounParadigm|
-        ὤν
+        *
         ὄντος
         ὄντι
         ὄντα
-        ὤν
+        *
 
         ὄντε
         ὄντοιν
 
         ὄντες
         ὄντων
-        οὖσι(ν)
+        *
         ὄντας
     |]
+--        ὤν : N V Sg
+--        οὖσι(ν) : Pl D
     -- feminine
     , [nounParadigm|
         οὖσα
@@ -100,9 +102,10 @@ participlesOne =
 
         ὄντα
         ὄντων
-        οὖσι(ν)
+        *
         ὄντα
     |]
+--        οὖσι(ν) : Pl D
  ]
 
 -- Smyth 306 participles in -ᾱς, -ᾱσα

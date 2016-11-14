@@ -17,6 +17,7 @@ import Grammar.Common
 import Grammar.Common.Decompose
 import Grammar.Greek.Script.Types
 import Grammar.Greek.Script.Word
+import Grammar.Greek.Morph.Paradigm.Ending
 import Grammar.Greek.Morph.Paradigm.Types
 import Grammar.Greek.Morph.Types
 import qualified Grammar.Greek.Script.Stage as Stage
@@ -67,7 +68,9 @@ wordPairsExp f x = case parseWordPairs x of
 nounParadigmParser :: String -> Q Exp
 nounParadigmParser x = case parseParadigmExemplars x of
   Failure e -> fail e
-  Success [a,b,c,d,e, f,g, h,i,j,k] -> dataToExpQ (const Nothing `extQ` handleText) $ NounParadigm a b c d e f g h i j k
+  Success [a,b,c,d,e, f,g, h,i,j,k] -> case getParadigmEndings . nounParadigmForms $ NounParadigm a b c d e f g h i j k of
+    Left err -> fail . show $ err
+    Right r -> dataToExpQ (const Nothing `extQ` handleText) r
   Success ws -> fail $ "Incorrect number of noun forms: " ++ show (length ws)
 
 verbParadigmParser :: String -> Q Exp
