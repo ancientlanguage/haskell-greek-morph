@@ -8,7 +8,6 @@ import GHC.Generics (Generic)
 import Data.Data
 import Data.Serialize (Serialize)
 import Data.Text (Text)
-import Grammar.Greek.Script.Word
 import Grammar.Greek.Morph.Types
 import Primary ()
 
@@ -40,15 +39,13 @@ data FormKind
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize FormKind
 
-data ParadigmForm = ParadigmForm
-  { paradigmFormKind :: FormKind
-  , paradigmFormExemplar :: ParadigmExemplar
-  , paradigmFormMorph :: Morph
-  , paradigmFormAccent :: Maybe WordAccent
-  , paradigmFormEnding :: [Phoneme]
+data ParadigmEnding = ParadigmEnding
+  { paradigmEndingExemplar :: ParadigmExemplar
+  , paradigmEndingMorph :: Morph
+  , paradigmEndingEnding :: [Phoneme]
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
-instance Serialize ParadigmForm
+instance Serialize ParadigmEnding
 
 data NounParadigm = NounParadigm
   { nounParadigmSgNom :: Maybe ParadigmExemplar

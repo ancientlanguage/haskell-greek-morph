@@ -88,6 +88,9 @@ data Morph = Morph
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Morph
 
+emptyMorph :: Morph
+emptyMorph = Morph Nothing Nothing Nothing Nothing Nothing Nothing Nothing
+
 substantiveMorph :: Case -> Number -> Gender -> Morph
 substantiveMorph c n g = Morph (Just c) (Just n) (Just g) Nothing Nothing Nothing Nothing
 

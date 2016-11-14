@@ -24,8 +24,8 @@ longestPrefix (x : xs) = go (reverse . fmap fst . allSplitsList $ x) xs
     then p
     else go ps ys
 
-nounParadigmForms :: Morph -> NounParadigm -> [Morph :* ParadigmExemplar]
-nounParadigmForms m (NounParadigm sgNom sgGen sgDat sgAcc sgVoc duNAV duGD plNomV plGen plDat plAcc) = catMaybes . fmap (_2 id) $
+nounParadigmForms :: NounParadigm -> [Morph :* ParadigmExemplar]
+nounParadigmForms (NounParadigm sgNom sgGen sgDat sgAcc sgVoc duNAV duGD plNomV plGen plDat plAcc) = catMaybes . fmap (_2 id) $
   [ setMorph Nominative Singular :^ sgNom
   , setMorph Genitive Singular :^ sgGen
   , setMorph Dative Singular :^ sgDat
@@ -44,10 +44,10 @@ nounParadigmForms m (NounParadigm sgNom sgGen sgDat sgAcc sgVoc duNAV duGD plNom
   , setMorph Accusative Plural :^ plAcc
   ]
   where
-  setMorph c n = m { morphCase = Just c, morphNumber = Just n }
+  setMorph c n = emptyMorph { morphCase = Just c, morphNumber = Just n }
 
-verbParadigmForms :: Morph -> VerbParadigm -> [Morph :* ParadigmExemplar]
-verbParadigmForms m (VerbParadigm sg1 sg2 sg3 dual2 dual3 pl1 pl2 pl3) = catMaybes . fmap (_2 id) $
+verbParadigmForms :: VerbParadigm -> [Morph :* ParadigmExemplar]
+verbParadigmForms (VerbParadigm sg1 sg2 sg3 dual2 dual3 pl1 pl2 pl3) = catMaybes . fmap (_2 id) $
   [ setMorph Singular Person1 :^ sg1
   , setMorph Singular Person2 :^ sg2
   , setMorph Singular Person3 :^ sg3
@@ -60,15 +60,19 @@ verbParadigmForms m (VerbParadigm sg1 sg2 sg3 dual2 dual3 pl1 pl2 pl3) = catMayb
   , setMorph Plural Person3 :^ pl3
   ]
   where
-  setMorph n p = m { morphNumber = Just n, morphPerson = Just p }
+  setMorph n p = emptyMorph { morphNumber = Just n, morphPerson = Just p }
 
-getParadigmForms :: FormKind -> [Morph :* ParadigmExemplar] -> [ParadigmForm]
-getParadigmForms fk es =
+data ParadigmError = NoCommonPrefix
+  deriving (Show)
+
+getParadigmEndings :: [Morph :* ParadigmExemplar] -> Either ParadigmError [ParadigmEnding]
+getParadigmEndings es =
   let
     toPhonemes = coreWordToPhonemes . accentedWordToCoreWord . paradigmExemplarWord
     pps = over (traverse . _2 . _2) toPhonemes . fmap (\(x,y) -> (x, (y, y))) $ es
     ps = fmap (view (_2 . _2)) pps
     prefixLen = length . longestPrefix $ ps
     pps' = over (traverse . _2 . _2) (drop prefixLen) pps
-    getAccent = accentedWordAccent . paradigmExemplarWord
-  in fmap (\(m, (ex, en)) -> ParadigmForm fk ex m (getAccent ex) en) pps'
+  in if prefixLen == 0
+    then Left NoCommonPrefix
+    else Right . fmap (\(m, (ex, en)) -> ParadigmEnding ex m en) $ pps'
