@@ -12,12 +12,8 @@ import Grammar.IO.QueryStage
 import Grammar.Common.Types
 import Grammar.Common.Numeric
 import qualified Grammar.Greek.Morph.Serialize as Serialize
-import Grammar.Greek.Morph.Types
-import Grammar.Greek.Morph.Paradigm.Types
-import Grammar.Greek.Morph.Paradigm.Maps (endingFormGroups)
-import Grammar.Greek.Script.Word
 
-import Queries
+import Morph (showMorphForms)
 
 queryOptionsParser :: Parser QueryOptions
 queryOptionsParser = QueryOptions <$> resultOptionParser <*> matchParser <*> omitParser <*> contextParser
@@ -113,25 +109,6 @@ showWordCounts = do
   where
   toLengthPair (sid, ms) = (showSourceId sid, length ms)
   printColumns llen rlen (x, y) = Lazy.putStrLn $ Lazy.format "{} {} words" (Lazy.right llen ' ' x, Lazy.left rlen ' ' y)
-
-showMorph :: Morph -> Lazy.Text
-showMorph (Morph a b c d e f g)
-  = Lazy.intercalate ", "
-  . filter (not . Lazy.null)
-  $ [sh a, sh b, sh c, sh d, sh e, sh f, sh g]
-  where
-  sh Nothing = ""
-  sh (Just x) = Lazy.pack . show $ x
-
-showAccent :: WordAccent -> Lazy.Text
-showAccent (WordAccent av ap _ _) = Lazy.format "{} {}" (Lazy.Shown av, Lazy.Shown ap)
-
-toTextFullParadigmForm :: ParadigmForm -> Lazy.Text
-toTextFullParadigmForm (ParadigmForm k (ParadigmEnding (ParadigmExemplar et _) m acc _)) =
-  Lazy.format "  {} -- {} -- {} -- {}" (Lazy.Shown k, Lazy.fromStrict et, showAccent acc, showMorph m)
-
-showMorphForms :: QueryOptions -> IO ()
-showMorphForms opt = showKeyValues opt (fmap (Lazy.toStrict . toTextFullParadigmForm)) endingFormGroups
 
 runCommand :: Command -> IO ()
 runCommand (CommandSources) = showWordCounts
