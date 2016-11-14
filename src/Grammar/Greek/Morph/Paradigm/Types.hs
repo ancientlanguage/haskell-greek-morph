@@ -9,6 +9,7 @@ import Data.Data
 import Data.Serialize (Serialize)
 import Data.Text (Text)
 import Grammar.Greek.Morph.Types
+import Grammar.Greek.Script.Word
 import Primary ()
 
 data ParadigmExemplar = ParadigmExemplar
@@ -46,6 +47,7 @@ instance Serialize FormKind
 data ParadigmEnding = ParadigmEnding
   { paradigmEndingExemplar :: ParadigmExemplar
   , paradigmEndingMorph :: Morph
+  , paradigmEndingAccent :: WordAccent
   , paradigmEndingEnding :: [Phoneme]
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
@@ -59,7 +61,7 @@ data ParadigmForm = ParadigmForm
 instance Serialize ParadigmForm
 
 makeParadigmForm :: FormKind -> Morph -> [ParadigmEnding] -> [ParadigmForm]
-makeParadigmForm fk m = fmap (\(ParadigmEnding ex m' en) -> ParadigmForm fk $ ParadigmEnding ex (mergeMorph m m') en)
+makeParadigmForm fk m = fmap (\(ParadigmEnding ex m' acc en) -> ParadigmForm fk $ ParadigmEnding ex (mergeMorph m m') acc en)
 
 data NounParadigm = NounParadigm
   { nounParadigmSgNom :: Maybe ParadigmExemplar

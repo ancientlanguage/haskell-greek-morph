@@ -172,7 +172,7 @@ declension1Masculines = makeParadigmForm
   ]
 
 -- Smyth 227. Contracts
-firstDeclensionContractsFeminine = makeParadigmForm
+declension1ContractsFeminine = makeParadigmForm
   (NounFormKind Declension1 IsContract)
   (genderMorph Feminine)
   $ concat
@@ -208,7 +208,7 @@ firstDeclensionContractsFeminine = makeParadigmForm
     |]
   ]
 
-firstDeclensionContractsMasculine = makeParadigmForm
+declension1ContractsMasculine = makeParadigmForm
   (NounFormKind Declension1 IsContract)
   (genderMorph Masculine)
   $ concat
@@ -243,3 +243,10 @@ firstDeclensionContractsMasculine = makeParadigmForm
 Ἑρμᾶς
     |]
   ]
+
+declension1Forms :: [ParadigmForm]
+declension1Forms
+  = declension1Feminines
+  ++ declension1Masculines
+  ++ declension1ContractsFeminine
+  ++ declension1ContractsMasculine

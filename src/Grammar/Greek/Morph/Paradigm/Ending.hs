@@ -3,6 +3,8 @@ module Grammar.Greek.Morph.Paradigm.Ending where
 import Control.Lens (over, view, _2)
 import qualified Data.List as List
 import Data.Maybe
+import Data.Text (Text)
+import qualified Data.Text as Text
 import Grammar.Common
 import Grammar.Greek.Morph.Phoneme.Round
 import Grammar.Greek.Morph.Types
@@ -62,8 +64,12 @@ verbParadigmForms (VerbParadigm sg1 sg2 sg3 dual2 dual3 pl1 pl2 pl3) = catMaybes
   where
   setMorph n p = emptyMorph { morphNumber = Just n, morphPerson = Just p }
 
-data ParadigmError = NoCommonPrefix
-  deriving (Show)
+data ParadigmError
+  = ParadigmNoCommonPrefix
+  | ParadigmNoAccent Text
+instance Show ParadigmError where
+  show ParadigmNoCommonPrefix = "ParadigmNoCommonPrefix"
+  show (ParadigmNoAccent t) = "No accent: " ++ Text.unpack t
 
 getParadigmEndings :: [Morph :* ParadigmExemplar] -> Either ParadigmError [ParadigmEnding]
 getParadigmEndings es =
@@ -73,6 +79,11 @@ getParadigmEndings es =
     ps = fmap (view (_2 . _2)) pps
     prefixLen = length . longestPrefix $ ps
     pps' = over (traverse . _2 . _2) (drop prefixLen) pps
+    getAccent = accentedWordAccent . paradigmExemplarWord
+    toEnding (m, (ex, en)) = case getAccent ex of
+      Nothing -> Left $ ParadigmNoAccent (paradigmExemplarText ex)
+      Just acc -> Right $ ParadigmEnding ex m acc en
+    results = traverse toEnding $ pps'
   in if prefixLen == 0
-    then Left NoCommonPrefix
-    else Right . fmap (\(m, (ex, en)) -> ParadigmEnding ex m en) $ pps'
+    then Left ParadigmNoCommonPrefix
+    else results
