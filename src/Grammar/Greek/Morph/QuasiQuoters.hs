@@ -76,7 +76,9 @@ nounParadigmParser x = case parseParadigmExemplars x of
 verbParadigmParser :: String -> Q Exp
 verbParadigmParser x = case parseParadigmExemplars x of
   Failure e -> fail e
-  Success [a,b,c, d,e, f,g,h] -> dataToExpQ (const Nothing `extQ` handleText) $ VerbParadigm a b c d e f g h
+  Success [a,b,c, d,e, f,g,h] -> case getParadigmEndings . verbParadigmForms $ VerbParadigm a b c d e f g h of
+    Left err -> fail . show $ err
+    Right r -> dataToExpQ (const Nothing `extQ` handleText) r
   Success ws -> fail $ "Incorrect number of verb forms: " ++ show (length ws)
 
 coreWords :: QuasiQuoter
