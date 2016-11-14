@@ -3,10 +3,15 @@
 
 module Grammar.Greek.Morph.Smyth.Nouns.Declension1 where
 
+import Grammar.Greek.Morph.Paradigm.Types
+import Grammar.Greek.Morph.Types
 import Grammar.Greek.Morph.QuasiQuoters
 
 -- Smyth 216. Feminines
-declension1Feminines =
+declension1Feminines = makeParadigmForm
+  (NounFormKind Declension1 NotContract)
+  (genderMorph Feminine)
+  $ concat
   [ [nounParadigm|
 χώρᾱ
 χώρᾱς
@@ -100,7 +105,10 @@ declension1Feminines =
   ]
 
 -- Smyth 222
-declension2Masculines =
+declension1Masculines = makeParadigmForm
+  (NounFormKind Declension1 NotContract)
+  (genderMorph Masculine)
+  $ concat
   [ [nounParadigm|
 νεᾱνίᾱ-ς
 νεᾱνίου
@@ -164,7 +172,10 @@ declension2Masculines =
   ]
 
 -- Smyth 227. Contracts
-firstDeclensionContracts =
+firstDeclensionContractsFeminine = makeParadigmForm
+  (NounFormKind Declension1 IsContract)
+  (genderMorph Feminine)
+  $ concat
   [ [nounParadigm|
 μνᾶ
 μνᾶς
@@ -195,7 +206,13 @@ firstDeclensionContracts =
 σῡκαῖς
 σῡκᾶς
     |]
-  , [nounParadigm|
+  ]
+
+firstDeclensionContractsMasculine = makeParadigmForm
+  (NounFormKind Declension1 IsContract)
+  (genderMorph Masculine)
+  $ concat
+  [ [nounParadigm|
 Βορρᾶ-ς
 Βορροῦ
 Βορρᾷ

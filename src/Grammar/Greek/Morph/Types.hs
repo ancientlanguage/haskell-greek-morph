@@ -91,6 +91,17 @@ instance Serialize Morph
 emptyMorph :: Morph
 emptyMorph = Morph Nothing Nothing Nothing Nothing Nothing Nothing Nothing
 
+mergeMorph :: Morph -> Morph -> Morph
+mergeMorph (Morph x1 x2 x3 x4 x5 x6 x7) (Morph y1 y2 y3 y4 y5 y6 y7) =
+  Morph (q x1 y1) (q x2 y2) (q x3 y3) (q x4 y4) (q x5 y5) (q x6 y6) (q x7 y7)
+  where
+  q Nothing x = x
+  q x Nothing = x
+  q (Just _) (Just y) = Just y
+
+genderMorph :: Gender -> Morph
+genderMorph g = emptyMorph { morphGender = Just g }
+
 substantiveMorph :: Case -> Number -> Gender -> Morph
 substantiveMorph c n g = Morph (Just c) (Just n) (Just g) Nothing Nothing Nothing Nothing
 

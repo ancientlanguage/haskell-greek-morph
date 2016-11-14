@@ -22,12 +22,16 @@ data Declension = Declension1 | Declension2 | Declension3 | DeclensionIrregular
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Declension
 
+data Contract = IsContract | NotContract
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize Contract
+
 data Conjugation = Conjugation1Omega | Conjugation2MI | ConjugationIrregularMI
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize Conjugation
 
 data FormKind
-  = NounFormKind Declension
+  = NounFormKind Declension Contract
   | PronounFormKind
   | AdjectiveFormKind
   | AdverbFormKind
@@ -46,6 +50,16 @@ data ParadigmEnding = ParadigmEnding
   }
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize ParadigmEnding
+
+data ParadigmForm = ParadigmForm
+  { paradigmFormKind :: FormKind
+  , paradigmFormEnding :: ParadigmEnding
+  }
+  deriving (Eq, Ord, Show, Generic, Data, Typeable)
+instance Serialize ParadigmForm
+
+makeParadigmForm :: FormKind -> Morph -> [ParadigmEnding] -> [ParadigmForm]
+makeParadigmForm fk m = fmap (\(ParadigmEnding ex m' en) -> ParadigmForm fk $ ParadigmEnding ex (mergeMorph m m') en)
 
 data NounParadigm = NounParadigm
   { nounParadigmSgNom :: Maybe ParadigmExemplar
