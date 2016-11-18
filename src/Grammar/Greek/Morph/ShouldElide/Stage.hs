@@ -40,7 +40,7 @@ shouldElide = Round to from
   to3 = over (_Failure . traverse . _2 . _1) fst
 
   toApply :: Word :* CoreWord :* ShouldElide :* a -> WordShouldElide
-  toApply (Word _ _ _ a b _ c d e, (cw, (se, _))) = WordShouldElide cw a b se c d e
+  toApply (Word _ _ _ a b _ c d e f, (cw, (se, _))) = WordShouldElide cw a b se c d e f
 
   to4 :: Validation a [ctx :* Word :* CoreWord :* ShouldElide :* InitialAspiration]
     -> Validation a [ctx :* WordShouldElide]
@@ -54,4 +54,4 @@ shouldElide = Round to from
   from3 = over (_Failure . traverse . _2 . _1) fst
   from4 = over (_Success . traverse . _2) fromApply
   fromApply :: WordShouldElide :* CoreWord :* Elision :* a -> Word
-  fromApply (WordShouldElide _ a b _ c d e, (CoreWord f g h, (el, _))) = Word f g h a b el c d e
+  fromApply (WordShouldElide _ a b _ c d e i, (CoreWord f g h, (el, _))) = Word f g h a b el c d e i

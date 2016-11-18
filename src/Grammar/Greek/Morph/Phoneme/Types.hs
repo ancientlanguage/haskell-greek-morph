@@ -19,6 +19,7 @@ data WordPhoneme = WordPhoneme
   Crasis
   ShouldElide
   MarkPreservation
+  DiaeresisConvention
   Capitalization
   HasWordPunctuation
   deriving (Eq, Ord, Show, Generic, Data, Typeable)

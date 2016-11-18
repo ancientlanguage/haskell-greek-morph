@@ -17,12 +17,13 @@ data WordShouldElide = WordShouldElide
   Crasis
   ShouldElide
   MarkPreservation
+  DiaeresisConvention
   Capitalization
   HasWordPunctuation
   deriving (Eq, Ord, Show, Generic, Data, Typeable)
 instance Serialize WordShouldElide
 
 wordShouldElideCoreWord :: WordShouldElide -> CoreWord
-wordShouldElideCoreWord (WordShouldElide x _ _ _ _ _ _) = x
+wordShouldElideCoreWord (WordShouldElide x _ _ _ _ _ _ _) = x
 wordShouldElideShouldElide :: WordShouldElide -> ShouldElide
-wordShouldElideShouldElide (WordShouldElide _ _ _ x _ _ _) = x
+wordShouldElideShouldElide (WordShouldElide _ _ _ x _ _ _ _) = x

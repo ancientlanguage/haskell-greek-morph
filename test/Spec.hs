@@ -72,5 +72,5 @@ main = defaultMain
   , allSplitsListGroup
   , uniqueFormsGroup
   , shouldElideGroup
-  , testGroupStages "morph stage" Stage.morph id (pure <$> Serialize.readScript)
+  , testGroupStages "morph stage" show Stage.morph id (pure <$> Serialize.readScript)
   ]

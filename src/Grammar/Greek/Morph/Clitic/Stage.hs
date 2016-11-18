@@ -16,10 +16,10 @@ clitic :: forall ctx . RoundContext ctx Void Void
 clitic = Round to from
   where
   toExtract :: WordShouldElide -> WordShouldElide :* CoreWord
-  toExtract w@(WordShouldElide cw _ _ _ _ _ _) = w :^ cw
+  toExtract w@(WordShouldElide cw _ _ _ _ _ _ _) = w :^ cw
 
   toApply :: WordShouldElide :* CoreWord :* Enclitic :* Proclitic -> WordClitic
-  toApply (WordShouldElide _ a b c d e f, (cw, (en, pro))) = WordClitic cw a en pro b c d e f
+  toApply (WordShouldElide _ a b c d e f g, (cw, (en, pro))) = WordClitic cw a en pro b c d e f g
 
   to
     = over (_Failure . traverse . _2 . _1) fst
@@ -28,10 +28,10 @@ clitic = Round to from
     . over (traverse . _2) toExtract
 
   fromExtract :: WordClitic -> WordClitic :* CoreWord :* Enclitic :* Proclitic
-  fromExtract w@(WordClitic cw _ en pro _ _ _ _ _) = w :^ cw :^ en :^ pro
+  fromExtract w@(WordClitic cw _ en pro _ _ _ _ _ _) = w :^ cw :^ en :^ pro
 
   fromApply :: WordClitic :* CoreWord -> WordShouldElide
-  fromApply (WordClitic _ a _ _ b c d e f, cw) = WordShouldElide cw a b c d e f
+  fromApply (WordClitic _ a _ _ b c d e f g, cw) = WordShouldElide cw a b c d e f g
 
   from
     = over (_Failure . traverse . _2 . _1) fst

@@ -16,10 +16,10 @@ phoneme :: forall ctx . RoundContext ctx Void Void
 phoneme = Round to from
   where
   toExtract :: WordClitic -> WordClitic :* CoreWord
-  toExtract w@(WordClitic cw _ _ _ _ _ _ _ _) = w :^ cw
+  toExtract w@(WordClitic cw _ _ _ _ _ _ _ _ _) = w :^ cw
 
   toApply :: WordClitic :* [Phoneme] -> WordPhoneme
-  toApply (WordClitic _ a b c d e f g h, ps) = WordPhoneme ps a b c d e f g h
+  toApply (WordClitic _ a b c d e f g h i, ps) = WordPhoneme ps a b c d e f g h i
 
   to
     = over (_Failure . traverse . _2 . _1) fst
@@ -28,10 +28,10 @@ phoneme = Round to from
     . over (traverse . _2) toExtract
 
   fromExtract :: WordPhoneme -> WordPhoneme :* [Phoneme]
-  fromExtract w@(WordPhoneme ps _ _ _ _ _ _ _ _) = w :^ ps
+  fromExtract w@(WordPhoneme ps _ _ _ _ _ _ _ _ _) = w :^ ps
 
   fromApply :: WordPhoneme :* CoreWord -> WordClitic
-  fromApply (WordPhoneme _ a b c d e f g h, cw) = WordClitic cw a b c d e f g h
+  fromApply (WordPhoneme _ a b c d e f g h i, cw) = WordClitic cw a b c d e f g h i
 
   from
     = over (_Failure . traverse . _2 . _1) fst

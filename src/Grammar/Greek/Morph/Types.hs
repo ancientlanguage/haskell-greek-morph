@@ -23,7 +23,7 @@ data CoreWord = CoreWord
 instance Serialize CoreWord
 
 wordToCoreWord :: Word -> CoreWord
-wordToCoreWord (Word asp ss fc _ _ _ _ _ _) = CoreWord asp ss fc
+wordToCoreWord (Word asp ss fc _ _ _ _ _ _ _) = CoreWord asp ss fc
 
 data AccentedWord = AccentedWord
   { accentedWordAspiration :: InitialAspiration
@@ -35,7 +35,7 @@ data AccentedWord = AccentedWord
 instance Serialize AccentedWord
 
 wordToAccentedWord :: Word -> AccentedWord
-wordToAccentedWord (Word asp ss fc a _ _ _ _ _) = AccentedWord asp ss fc a
+wordToAccentedWord (Word asp ss fc a _ _ _ _ _ _) = AccentedWord asp ss fc a
 
 accentedWordToCoreWord :: AccentedWord -> CoreWord
 accentedWordToCoreWord (AccentedWord asp s fc _) = CoreWord asp s fc
