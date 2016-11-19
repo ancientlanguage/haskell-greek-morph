@@ -3,10 +3,17 @@
 
 module Grammar.Greek.Morph.Smyth.Nouns.Declension3 where
 
+import Grammar.Greek.Morph.Paradigm.Types
+import Grammar.Greek.Morph.Types
 import Grammar.Greek.Morph.QuasiQuoters
 
+decl3 g ps = makeParadigmForm
+  (NounFormKind Declension3 NotContract)
+  (genderMorph g)
+  (concat ps)
+
 -- Smyth 256. STEMS IN A LABIAL (π, β, φ)  OR IN A PALATAL (κ, γ, χ)
-declension3LabialPalatal =
+declension3LabialPalatalMasculine = decl3 Masculine
   [ [nounParadigm|
 Αἰθίοψ
 Αἰθίοπ-ος
@@ -23,21 +30,6 @@ declension3LabialPalatal =
 Αἰθίοπ-ας
     |]
   , [nounParadigm|
-φλέψ
-φλεβ-ός
-φλεβ-ί
-φλέβ-α
-φλέψ
-
-φλέβ-ε
-φλεβ-οῖν
-
-φλέβ-ες
-φλεβ-ῶν
-φλεψί(ν)
-φλέβ-ας
-    |]
-  , [nounParadigm|
 φύλαξ
 φύλακ-ος
 φύλακ-ι
@@ -51,6 +43,39 @@ declension3LabialPalatal =
 φυλάκ-ων
 φύλαξι(ν)
 φύλακ-ας
+    |]
+  , [nounParadigm|
+αἴξ
+αἰγ-ός
+αἰγ-ί
+αἶγ-α
+αἴξ
+
+αἶγ-ε
+αἰγ-οῖν
+
+αἶγ-ες
+αἰγ-ῶν
+αἰξί(ν)
+αἶγ-ας
+    |]
+  ]
+
+declension3LabialPalatalFeminine = decl3 Feminine
+  [ [nounParadigm|
+φλέψ
+φλεβ-ός
+φλεβ-ί
+φλέβ-α
+φλέψ
+
+φλέβ-ε
+φλεβ-οῖν
+
+φλέβ-ες
+φλεβ-ῶν
+φλεψί(ν)
+φλέβ-ας
     |]
   , [nounParadigm|
 φάλαγξ
@@ -115,7 +140,7 @@ declension3LabialPalatal =
   ]
 
 -- Smyth 257. STEMS IN A DENTAL (τ, δ, θ)
-declension3DentalMasculineFeminine =
+declension3DentalMasculine = decl3 Masculine
   [ [nounParadigm|
 θής
 θητ-ός
@@ -132,6 +157,54 @@ declension3DentalMasculineFeminine =
 θῆτ-ας
     |]
     , [nounParadigm|
+γίγᾱς
+γίγαντ-ος
+γίγαντ-ι
+γίγαντ-α
+γίγαν
+
+γίγαντ-ε
+γιγάντ-οιν
+
+γίγαντ-ες
+γιγάντ-ων
+γίγᾱσι(ν)
+γίγαντ-ας
+    |]
+    , [nounParadigm|
+γέρων
+γέροντ-ος
+γέροντ-ι
+γέροντ-α
+γέρον
+
+γέροντ-ε
+γερόντ-οιν
+
+γέροντ-ες
+γερόντ-ων
+γέρουσι(ν)
+γέροντ-ας
+    |]
+    , [nounParadigm|
+ὄρνῑς
+ὄρνῑθ-ος
+ὄρνῑθ-ι
+ὄρνῑν
+ὄρνῑ
+
+ὄρνῑθ-ε
+ὀρνί̄θ-οιν
+
+ὄρνῑθ-ες
+ὀρνί̄θ-ων
+ὄρνῑσι(ν)
+ὄρνῑθ-ας
+    |]
+  ]
+
+declension3DentalFeminine = decl3 Feminine
+    [ [nounParadigm|
 ἐλπίς
 ἐλπίδ-ος
 ἐλπίδ-ι
@@ -176,40 +249,10 @@ declension3DentalMasculineFeminine =
 ὄρνῑσι(ν)
 ὄρνῑθ-ας
     |]
-    , [nounParadigm|
-γίγᾱς
-γίγαντ-ος
-γίγαντ-ι
-γίγαντ-α
-γίγαν
-
-γίγαντ-ε
-γιγάντ-οιν
-
-γίγαντ-ες
-γιγάντ-ων
-γίγᾱσι(ν)
-γίγαντ-ας
-    |]
-    , [nounParadigm|
-γέρων
-γέροντ-ος
-γέροντ-ι
-γέροντ-α
-γέρον
-
-γέροντ-ε
-γερόντ-οιν
-
-γέροντ-ες
-γερόντ-ων
-γέρουσι(ν)
-γέροντ-ας
-    |]
   ]
 
   -- Smyth 258. NEUTERS WITH STEMS IN τ AND IN ᾱτ VARYING WITH ας AND STEMS IN τ AND IN ᾱτ VARYING WITH ας
-declension3Neuter =
+declension3Neuter = decl3 Neuter
   [ [nounParadigm|
 σῶμα
 σώματ-ος
@@ -232,8 +275,8 @@ declension3Neuter =
 ἧπαρ
 ἧπαρ
 
-ἧπαρ
-ἥπατ-ος
+ἧπατ-ε
+ἥπατ-οιν
 
 ἥπατ-α
 ἡπάτ-ων
@@ -247,8 +290,8 @@ declension3Neuter =
 τέρας
 τέρας
 
-τέρας
-τέρατ-ος
+τέρατ-ε
+τέρατ-οιν
 
 τέρατ-α
 τεράτ-ων
@@ -262,8 +305,8 @@ declension3Neuter =
 κέρας
 κέρας
 
-κέρας
-κέρᾱτ-ος
+κέρᾱτ-ε
+κέρᾱτ-οιν
 
 κέρᾱτ-α
 κερά̄τ-ων
@@ -277,7 +320,7 @@ declension3Neuter =
 *
 *
 
-*
+κέρᾱ
 κέρως
 
 κέρᾱ
@@ -286,7 +329,7 @@ declension3Neuter =
 κέρᾱ
     |]
   ]
-
+{-
  -- Smyth 259. STEMS IN A LIQUID (λ, ρ) OR A NASAL (ν)
 declension3LiquidNasal =
   [ [nounParadigm|
@@ -635,3 +678,4 @@ declension3StemευAndαυAndου=
 βοῦ-ς
     |]
   ]
+-}
