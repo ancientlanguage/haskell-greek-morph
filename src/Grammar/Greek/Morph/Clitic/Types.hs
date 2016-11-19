@@ -17,7 +17,7 @@ data WordClitic = WordClitic
   Enclitic
   Proclitic
   Crasis
-  ShouldElide
+  Elision
   MarkPreservation
   DiaeresisConvention
   Capitalization

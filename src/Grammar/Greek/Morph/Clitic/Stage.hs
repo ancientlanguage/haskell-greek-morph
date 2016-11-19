@@ -7,19 +7,19 @@ import Data.Void
 import Grammar.Common
 import qualified Grammar.Greek.Morph.Clitic.Round as Round
 import Grammar.Greek.Morph.Clitic.Types
-import Grammar.Greek.Morph.ShouldElide.Types
 import Grammar.Greek.Morph.Types
+import Grammar.Greek.Script.Word
 
 clitic :: forall ctx . RoundContext ctx Void Void
-  WordShouldElide
+  Word
   WordClitic
 clitic = Round to from
   where
-  toExtract :: WordShouldElide -> WordShouldElide :* CoreWord
-  toExtract w@(WordShouldElide cw _ _ _ _ _ _ _) = w :^ cw
+  toExtract :: Word -> Word :* CoreWord
+  toExtract w = w :^ wordToCoreWord w
 
-  toApply :: WordShouldElide :* CoreWord :* Enclitic :* Proclitic -> WordClitic
-  toApply (WordShouldElide _ a b c d e f g, (cw, (en, pro))) = WordClitic cw a en pro b c d e f g
+  toApply :: Word :* CoreWord :* Enclitic :* Proclitic -> WordClitic
+  toApply (Word _ _ _ a b c d e f g, (cw, (en, pro))) = WordClitic cw a en pro b c d e f g
 
   to
     = over (_Failure . traverse . _2 . _1) fst
@@ -30,8 +30,8 @@ clitic = Round to from
   fromExtract :: WordClitic -> WordClitic :* CoreWord :* Enclitic :* Proclitic
   fromExtract w@(WordClitic cw _ en pro _ _ _ _ _ _) = w :^ cw :^ en :^ pro
 
-  fromApply :: WordClitic :* CoreWord -> WordShouldElide
-  fromApply (WordClitic _ a _ _ b c d e f g, cw) = WordShouldElide cw a b c d e f g
+  fromApply :: WordClitic :* CoreWord -> Word
+  fromApply (WordClitic _ a _ _ b c d e f g, CoreWord asp ss fc) = Word asp ss fc a b c d e f g
 
   from
     = over (_Failure . traverse . _2 . _1) fst

@@ -17,7 +17,7 @@ data WordPhoneme = WordPhoneme
   Enclitic
   Proclitic
   Crasis
-  ShouldElide
+  Elision
   MarkPreservation
   DiaeresisConvention
   Capitalization
