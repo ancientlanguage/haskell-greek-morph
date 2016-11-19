@@ -3,10 +3,15 @@
 
 module Grammar.Greek.Morph.Smyth.Nouns.Declension2 where
 
+import Grammar.Greek.Morph.Paradigm.Types
+import Grammar.Greek.Morph.Types
 import Grammar.Greek.Morph.QuasiQuoters
 
 -- Smyth 230
-declension2 =
+declension2Masculine = makeParadigmForm
+  (NounFormKind Declension2 NotContract)
+  (genderMorph Masculine)
+  $ concat
   [ [nounParadigm|
 ἵππο-ς
 ἵππου
@@ -37,7 +42,13 @@ declension2 =
 ἀνθρώποις
 ἀνθρώπους
     |]
-  , [nounParadigm|
+  ]
+
+declension2Feminine = makeParadigmForm
+  (NounFormKind Declension2 NotContract)
+  (genderMorph Feminine)
+  $ concat
+  [ [nounParadigm|
 ὁδό-ς
 ὁδοῦ
 ὁδῷ
@@ -52,7 +63,13 @@ declension2 =
 ὁδοῖς
 ὁδούς
     |]
-  , [nounParadigm|
+  ]
+
+declension2Neuter = makeParadigmForm
+  (NounFormKind Declension2 NotContract)
+  (genderMorph Neuter)
+  $ concat
+  [ [nounParadigm|
 δῶρο-ν
 δώρου
 δώρῳ
@@ -70,7 +87,10 @@ declension2 =
   ]
 
 -- Smyth 235. Contracts
-secondDeclensionContracts =
+declension2ContractMasculine = makeParadigmForm
+  (NounFormKind Declension2 IsContract)
+  (genderMorph Masculine)
+  $ concat
   [ [nounParadigm|
 νοῦ
 νῷ
@@ -101,7 +121,13 @@ secondDeclensionContracts =
 περίπλοις
 περίπλους
     |]
-    , [nounParadigm|
+  ]
+
+declension2ContractNeuter = makeParadigmForm
+  (NounFormKind Declension2 IsContract)
+  (genderMorph Neuter)
+  $ concat
+  [ [nounParadigm|
 ὀστοῦ
 ὀστῷ
 ὀστοῦ-ν
@@ -117,3 +143,11 @@ secondDeclensionContracts =
 ὀστᾶ
     |]
   ]
+
+declension2Forms :: [ParadigmForm]
+declension2Forms
+  = declension2Masculine
+  ++ declension2Feminine
+  ++ declension2Neuter
+  ++ declension2ContractMasculine
+  ++ declension2ContractNeuter
