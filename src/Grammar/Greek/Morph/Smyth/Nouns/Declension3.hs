@@ -252,7 +252,7 @@ declension3DentalFeminine = decl3 Feminine
   ]
 
   -- Smyth 258. NEUTERS WITH STEMS IN τ AND IN ᾱτ VARYING WITH ας AND STEMS IN τ AND IN ᾱτ VARYING WITH ας
-declension3Neuter = decl3 Neuter
+declension3Neuterτ = decl3 Neuter
   [ [nounParadigm|
 σῶμα
 σώματ-ος
@@ -329,9 +329,9 @@ declension3Neuter = decl3 Neuter
 κέρᾱ
     |]
   ]
-{-
+
  -- Smyth 259. STEMS IN A LIQUID (λ, ρ) OR A NASAL (ν)
-declension3LiquidNasal =
+declension3LiquidNasalMasculine = decl3 Masculine
   [ [nounParadigm|
 θήρ
 θηρ-ός
@@ -361,21 +361,6 @@ declension3LiquidNasal =
 ῥητόρ-ων
 ῥήτορ-σι(ν)
 ῥήτορ-ας
-  |]
-  , [nounParadigm|
-ῥῑ́ς
-ῥῑν-ός
-ῥῑν-ί
-ῥῖν-α
-ῥῑ́ς
-
-ῥῖν-ε
-ῥῑν-οῖν
-
-ῥῖν-ες
-ῥῑν-ῶν
-ῥῑσί(ν)
-ῥῖν-ας
   |]
   , [nounParadigm|
 ἡγεμών
@@ -424,8 +409,26 @@ declension3LiquidNasal =
     |]
   ]
 
+declension3LiquidNasalFeminine = decl3 Feminine
+  [ [nounParadigm|
+ῥῑ́ς
+ῥῑν-ός
+ῥῑν-ί
+ῥῖν-α
+ῥῑ́ς
+
+ῥῖν-ε
+ῥῑν-οῖν
+
+ῥῖν-ες
+ῥῑν-ῶν
+ῥῑσί(ν)
+ῥῖν-ας
+    |]
+  ]
+
 -- Smyth 262. STEMS IN ερ VARYING WITH ρ
-declension3StemερWithρ=
+declension3StemερWithρMasculine = decl3 Masculine
   [ [nounParadigm|
 πατήρ
 πατρ-ός
@@ -441,36 +444,6 @@ declension3StemερWithρ=
 πατρά-σι(ν)
 πατέρ-ας
     |]
-  , [nounParadigm|
-μήτηρ
-μητρ-ός
-μητρ-ί
-μητέρ-α
-μῆτερ
-
-μητέρ-ε
-μητέρ-οιν
-
-μητέρ-ες
-μητέρ-ων
-μητρά-σι(ν)
-μητέρ-ας
-  |]
-  , [nounParadigm|
-θυγάτηρ
-θυγατρ-ός
-θυγατρ-ί
-θυγατέρ-α
-θύγατερ
-
-θυγατέρ-ε
-θυγατέρ-οιν
-
-θυγατέρ-ες
-θυγατέρ-ων
-θυγατρά-σι(ν)
-θυγατέρ-ας
-  |]
   , [nounParadigm|
 ἀνήρ
 ἀνδρ-ός
@@ -488,8 +461,43 @@ declension3StemερWithρ=
     |]
   ]
 
+declension3StemερWithρFeminine = decl3 Feminine
+  [ [nounParadigm|
+μήτηρ
+μητρ-ός
+μητρ-ί
+μητέρ-α
+μῆτερ
+
+μητέρ-ε
+μητέρ-οιν
+
+μητέρ-ες
+μητέρ-ων
+μητρά-σι(ν)
+μητέρ-ας
+    |]
+  , [nounParadigm|
+θυγάτηρ
+θυγατρ-ός
+θυγατρ-ί
+θυγατέρ-α
+θύγατερ
+
+θυγατέρ-ε
+θυγατέρ-οιν
+
+θυγατέρ-ες
+θυγατέρ-ων
+θυγατρά-σι(ν)
+θυγατέρ-ας
+    |]
+  ]
+
+-- Socrates, Demosthenes
+
 -- Smyth 263. STEMS Ending IN SIGMA (ες, ας, ος)
-declension3StemSigma=
+declension3StemSigmaFeminine = decl3 Feminine
   [ [nounParadigm|
 τριήρης
 τριήρους
@@ -504,8 +512,11 @@ declension3StemSigma=
 τριήρων
 τριήρεσι(ν)
 τριῄρεις
-  |]
-  , [nounParadigm|
+    |]
+  ]
+
+declension3StemSigmaNeuter = decl3 Neuter
+  [ [nounParadigm|
 γένος
 γένους
 γένει
@@ -536,8 +547,12 @@ declension3StemSigma=
 γέρᾱ
     |]
   ]
+
+-- 265 deos
+-- 267 heros
+
 -- Smyth 268. STEMS IN ι AND υ
-declension3StemIotaAndUpsilon=
+declension3StemιAndυFeminine = decl3 Feminine
   [ [nounParadigm|
 πόλι-ς
 πόλε-ως
@@ -552,37 +567,7 @@ declension3StemIotaAndUpsilon=
 πόλε-ων
 πόλε-σι(ν)
 πόλεις
-  |]
-  , [nounParadigm|
-πῆχυ-ς
-πήχε-ως
-πήχει
-πῆχυ-ν
-πῆχυ
-
-πήχει
-πηχέ-οιν
-
-πήχεις
-πήχε-ων
-πήχε-σι(ν)
-πήχεις
-  |]
-  , [nounParadigm|
-ἄστυ
-ἄστε-ως
-ἄστει
-ἄστυ
-ἄστυ
-
-ἄστει
-ἀστέ-οιν
-
-ἄστη
-ἄστε-ων
-ἄστε-σι(ν)
-ἄστη
-  |]
+    |]
   , [nounParadigm|
 σῦ-ς
 συ-ός
@@ -598,6 +583,24 @@ declension3StemIotaAndUpsilon=
 συ-σί(ν)
 σῦς
   |]
+  ]
+
+declension3StemιAndυMasculine = decl3 Masculine
+  [ [nounParadigm|
+πῆχυ-ς
+πήχε-ως
+πήχει
+πῆχυ-ν
+πῆχυ
+
+πήχει
+πηχέ-οιν
+
+πήχεις
+πήχε-ων
+πήχε-σι(ν)
+πήχεις
+    |]
   , [nounParadigm|
 ἰχθῡ́-ς
 ιχθύ-ος
@@ -615,8 +618,26 @@ declension3StemIotaAndUpsilon=
     |]
   ]
 
+declension3StemιAndυNeuter = decl3 Neuter
+  [ [nounParadigm|
+ἄστυ
+ἄστε-ως
+ἄστει
+ἄστυ
+ἄστυ
+
+ἄστει
+ἀστέ-οιν
+
+ἄστη
+ἄστε-ων
+ἄστε-σι(ν)
+ἄστη
+    |]
+  ]
+
 -- Smyth 275. STEMS IN ευ, αυ, ου
-declension3StemευAndαυAndου=
+declension3StemευAndαυAndουMasculine = decl3 Masculine
   [ [nounParadigm|
 βασιλεύ-ς
 βασιλέ-ως
@@ -631,36 +652,6 @@ declension3StemευAndαυAndου=
 βασιλέ-ων
 βασιλεῦ-σι(ν)
 βασιλέ-ᾱς
-    |]
-    , [nounParadigm|
-γραῦ-ς
-γρᾱ-ός
-γρᾱ-ῑ́
-γραῦ-ν
-γραῦ
-
-γρᾶ-ε
-γρᾱ-οῖν
-
-γρᾶ-ες
-γρᾱ-ῶν
-γραυ-σί(ν)
-γραῦ-ς
-    |]
-    , [nounParadigm|
-ναῦ-ς
-νε-ώς
-νη-ῑ́
-ναῦ-ν
-ναῦ
-
-νῆ-ε
-νε-οῖν
-
-νῆ-ες
-νε-ῶν
-ναυ-σί(ν)
-ναῦ-ς
     |]
     , [nounParadigm|
 βοῦ-ς
@@ -678,4 +669,70 @@ declension3StemευAndαυAndου=
 βοῦ-ς
     |]
   ]
--}
+
+declension3StemευAndαυAndουFeminine = decl3 Feminine
+  [ [nounParadigm|
+γραῦ-ς
+γρᾱ-ός
+γρᾱ-ῑ́
+γραῦ-ν
+γραῦ
+
+γρᾶ-ε
+γρᾱ-οῖν
+
+γρᾶ-ες
+γρᾱ-ῶν
+γραυ-σί(ν)
+γραῦ-ς
+    |]
+  , [nounParadigm|
+ναῦ-ς
+νε-ώς
+νη-ῑ́
+ναῦ-ν
+ναῦ
+
+νῆ-ε
+νε-οῖν
+
+νῆ-ες
+νε-ῶν
+ναυ-σί(ν)
+ναῦ-ς
+    |]
+  , [nounParadigm|
+βοῦ-ς
+βο-ός
+βο-ῑ́
+βοῦ-ν
+βοῦ
+
+βό-ε
+βο-οῖν
+
+βό-ες
+βο-ῶν
+βου-σί(ν)
+βοῦ-ς
+    |]
+  ]
+
+declension3Forms :: [ParadigmForm]
+declension3Forms
+  = declension3LabialPalatalMasculine
+  ++ declension3LabialPalatalFeminine
+  ++ declension3DentalMasculine
+  ++ declension3DentalFeminine
+  ++ declension3Neuterτ
+  ++ declension3LiquidNasalMasculine
+  ++ declension3LiquidNasalFeminine
+  ++ declension3StemερWithρMasculine
+  ++ declension3StemερWithρFeminine
+  ++ declension3StemSigmaFeminine
+  ++ declension3StemSigmaNeuter
+  ++ declension3StemιAndυFeminine
+  ++ declension3StemιAndυMasculine
+  ++ declension3StemιAndυNeuter
+  ++ declension3StemευAndαυAndουMasculine
+  ++ declension3StemευAndαυAndουFeminine
