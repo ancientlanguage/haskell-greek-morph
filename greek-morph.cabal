@@ -1,5 +1,5 @@
 name: greek-morph
-version: 2.0.0
+version: 3.0.0
 synopsis: Ancient Greek morphophonology modeled in Haskell verified against primary sources
 description: Please see README.md
 homepage: https://github.com/ancientlanguage/haskell-greek-morph#readme
