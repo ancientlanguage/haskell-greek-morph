@@ -11,7 +11,7 @@ packages:
   extra-dep: true
 - location:
     git: https://github.com/ancientlanguage/haskell-greek-script.git
-    commit: aebd905543ab609a5c955595e4cf4c65fac4e9ed
+    commit: ef85f5fbdd72fdf8aa0e332588bcd2fae51edd7b
   extra-dep: true
 extra-deps: []
 flags: {}
